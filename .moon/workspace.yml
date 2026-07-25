@@ -1,0 +1,5 @@
+projects:
+  - apps/*
+vcs:
+  defaultBranch: dev
+  provider: github

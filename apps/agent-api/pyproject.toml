@@ -1,0 +1,31 @@
+[project]
+name = "agent-api"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "agno>=2.8.2",
+    "aiosqlite>=0.22.1",
+    "alembic>=1.18.5",
+    "anyio>=4.14.2",
+    "celery>=5.6.3",
+    "chonkie>=1.7.0",
+    "chromadb>=1.5.9",
+    "ddgs>=9.14.4",
+    "fastapi>=0.115.0",
+    "greenlet>=3.5.4",
+    "httpx>=0.28.1",
+    "langfuse>=4.14.1",
+    "mcp[cli]>=1.28.1",
+    "mistralai>=1.0",
+    "openai>=2.48.0",
+    "openinference-instrumentation-openai>=0.1.52",
+    "pandas>=3.0.5",
+    "pydantic>=2.0",
+    "pydantic-settings>=2.14.2",
+    "pytest>=9.1.1",
+    "python-multipart>=0.0.32",
+    "redis>=8.0.1",
+    "sqlmodel>=0.0.39",
+    "tavily-python>=0.7.26",
+    "uvicorn[standard]>=0.51.0",
+]

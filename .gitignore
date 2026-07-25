@@ -78,3 +78,7 @@ skills-lock.json
 # ─── Misc ────────────────────────────────────────────────────────
 TODO.local.md
 NOTES.local.md
+
+# moon
+.moon/cache
+.moon/docker
