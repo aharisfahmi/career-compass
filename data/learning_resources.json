@@ -1,0 +1,38 @@
+[
+  {
+    "id": "LR-001",
+    "title": "SQL for Data Science",
+    "provider": "Coursera",
+    "skills": ["SQL", "Data Analysis"],
+    "language": "en",
+    "cost_idr": 350000,
+    "duration_hours": 40,
+    "resource_type": "course",
+    "url": "https://www.coursera.org/learn/sql-for-data-science",
+    "last_verified_at": "2026-07-10"
+  },
+  {
+    "id": "LR-002",
+    "title": "Belajar Python Dasar",
+    "provider": "Dicoding",
+    "skills": ["Python"],
+    "language": "id",
+    "cost_idr": 0,
+    "duration_hours": 20,
+    "resource_type": "course",
+    "url": "https://www.dicoding.com/academies/86",
+    "last_verified_at": "2026-07-10"
+  },
+  {
+    "id": "LR-030",
+    "title": "FastAPI Full Course",
+    "provider": "freeCodeCamp",
+    "skills": ["Python", "FastAPI", "REST API"],
+    "language": "en",
+    "cost_idr": 0,
+    "duration_hours": 8,
+    "resource_type": "video",
+    "url": "https://www.youtube.com/watch?v=tLKKmouUums",
+    "last_verified_at": "2026-07-10"
+  }
+]

@@ -8,7 +8,7 @@
 | **Status** | Approved for Implementation |
 | **Tanggal** | 14 Juli 2026 |
 | **Target pengerjaan** | 2 minggu / 10 hari kerja |
-| **Platform** | Web MVP (Streamlit) |
+| **Platform** | Web MVP (FastAPI backend + React frontend, monorepo) |
 | **Target pengguna** | Early-career professional dan career switcher di Indonesia |
 | **Bahasa** | Indonesia dan Inggris |
 | **Supported Roles** | Data Analyst, Business Analyst, Python Backend Developer, QA Engineer, Product Manager, Digital Marketing Specialist |
@@ -236,9 +236,9 @@ Jika data tidak memadai, sistem tetap membuat report tetapi memberikan label **L
 ### Batasan CV
 
 - Maksimal 5 MB.
-- PDF harus mengandung selectable text.
-- Scanned PDF dan OCR tidak didukung.
-- Pengguna wajib mengonfirmasi hasil ekstraksi sebelum analisis dimulai.
+- Didukung: PDF dengan selectable text, PDF hasil scan, dan TXT.
+- Parsing memakai **Mistral OCR API**; bukan library lokal seperti pypdf.
+- Hasil ekstraksi tetap wajib dikonfirmasi pengguna sebelum analisis dimulai.
 
 ---
 
@@ -393,8 +393,8 @@ Workflow bersifat agentic karena sistem:
 
 **Tanggung jawab:**
 
-- Menjalankan LangGraph workflow.
-- Menyimpan shared state.
+- Menjalankan workflow via Python orchestrator + Agno Agent instances (lihat `TECH_STACK.md` §1.4).
+- Menyimpan shared state (`TypedDict`).
 - Mengatur urutan dan conditional routing.
 - Menangani timeout dan retry.
 - Menggabungkan output sub-agent.
@@ -484,14 +484,16 @@ Supervisor lebih banyak memakai kode deterministik daripada keputusan LLM.
 
 MCP server lokal menjadi batas antara AI agents dan sumber data.
 
-| **Tool** | **Fungsi** |
-|---|---|
-| `search_job_market` | Semantic search lowongan berdasarkan role, skill, seniority, dan lokasi. |
-| `get_role_skill_stats` | Menghitung frekuensi required dan preferred skills. |
-| `normalize_skills` | Mengubah variasi nama skill ke taxonomy standar. |
-| `calculate_role_fit` | Menghitung seluruh komponen Role Fit Score. |
-| `get_salary_benchmark` | Mengambil salary range dan sample size jika tersedia. |
-| `search_learning_resources` | Mencari learning resource berdasarkan skill, biaya, bahasa, dan durasi. |
+| **Tool** | **Sumber Data** | **Fungsi** |
+|---|---|---|
+| `search_job_market` | ChromaDB `job_postings` (only) | Semantic search lowongan berdasarkan role, skill, seniority, dan lokasi. |
+| `get_role_skill_stats` | ChromaDB `job_postings` (only) | Menghitung frekuensi required dan preferred skills. |
+| `normalize_skills` | `skill_taxonomy.py` (deterministik) | Mengubah variasi nama skill ke taxonomy standar. |
+| `calculate_role_fit` | `scoring.py` (deterministik, no LLM) | Menghitung seluruh komponen Role Fit Score. |
+| `get_salary_benchmark` | ChromaDB `job_postings` (only) | Mengambil salary range dan sample size jika tersedia. |
+| `search_learning_resources` | **Hybrid**: ChromaDB → Tavily → DuckDuckGo | Mencari learning resource berdasarkan skill, biaya, bahasa, dan durasi. URL hasil web search bersifat verifiable oleh pengguna. |
+
+> **Catatan:** Live scraping portal lowongan (LinkedIn, Jobstreet) dilarang (lihat §3 Non-Goals). Web search API (Tavily, DuckDuckGo) hanya untuk enrichment `learning_resources`, bukan `job_postings`. Detail pola hybrid di `ARCHITECTURE.md §5`.
 
 Tool harus mengembalikan **structured JSON**, bukan teks bebas.
 
@@ -523,8 +525,9 @@ Tool harus mengembalikan **structured JSON**, bukan teks bebas.
 
 ### Technology
 
-- **ChromaDB** untuk MVP lokal.
-- **OpenAI `text-embedding-3-small`** atau embedding model yang dikonfigurasi melalui environment variable.
+- **ChromaDB** untuk MVP lokal (`PersistentClient`).
+- **OpenAI `text-embedding-3-small`** atau embedding model yang dikonfigurasi melalui environment variable (lihat `TECH_STACK.md` §1.5).
+- **Mistral OCR API** untuk parsing CV PDF (selectable + scanned). Bukan library lokal seperti pypdf (lihat `TECH_STACK.md` §1.7).
 
 ### Collections
 
@@ -597,21 +600,31 @@ Live scraping tidak menjadi dependency untuk demo.
 
 ## 17. Base Technology
 
+> **Acuan tunggal untuk dependensi:** `TECH_STACK.md` §1. Setiap tambahan dependensi wajib terdaftar di sana.
+
 | **Layer** | **Technology** |
 |---|---|
-| Programming language | Python 3.11+ |
-| Frontend | Streamlit |
-| Agent orchestration | LangGraph |
-| LLM integration | OpenAI SDK, model configurable |
-| Structured output | Pydantic |
-| MCP server | MCP Python SDK / FastMCP |
-| Vector database | ChromaDB |
+| Programming language | Python 3.11+ (backend), TypeScript (frontend) |
+| Monorepo | Moon Repo + UV (Python) + PNPM (frontend), struktur `apps/agent-api` + `apps/agent-frontend` |
+| Backend framework | FastAPI + Uvicorn + Pydantic v2 + Pydantic Settings |
+| Database | SQLite via SQLModel (async via aiosqlite + greenlet) + Alembic migration |
+| Background task | Celery + Redis (broker + PubSub untuk SSE progress) |
+| Frontend | React + Vite + TanStack Router/Query + AI SDK (`useChat` + `DefaultChatTransport`) + `react-markdown` |
+| Agent orchestration | Agno (Python orchestrator + Agno Agent instances). Bukan LangGraph (lihat `TECH_STACK.md` §1.4). |
+| LLM integration | OpenAI SDK atau OpenAI-compatible endpoint; model configurable (OpenAI / Mistral / OpenRouter / Anthropic / Gemini) |
 | Embeddings | `text-embedding-3-small` atau configurable |
-| CV parsing | `pypdf` |
+| Structured output | Pydantic BaseModel (`structured_output`) |
+| MCP server | FastMCP (Python `mcp` SDK), transport STDIO lokal |
+| Vector database | ChromaDB (`PersistentClient`) |
+| CV parsing | **Mistral OCR API** (bukan pypdf) |
+| Chunking | Chonkie (RecursiveChunker default) |
+| Web search (enrichment) | Tavily (primary) + DuckDuckGo (fallback gratis). Hanya untuk `search_learning_resources`. |
 | Data processing | Pandas |
+| Observability | Langfuse (OpenTelemetry-based) untuk Cost / Latency / Accuracy / Hallucination measurement |
 | Testing | Pytest |
-| Logging | Python structured logging |
-| Configuration | `.env` dan environment variables |
+| Logging | Python structured logging (PII tidak boleh masuk log) |
+| Configuration | `.env` di root monorepo, akses via Pydantic Settings |
+| Deployment | VPS Debian (systemd + Nginx + Certbot) untuk backend, Cloudflare Pages untuk frontend, Docker untuk sandboxing |
 
 ---
 
@@ -734,7 +747,7 @@ Reviewer memberi skor 1–5 untuk:
 | **Hari** | **Pekerjaan** | **Exit Criteria** |
 |---|---|---|
 | 1 | Finalisasi PRD, architecture, schema, backlog | Scope P0 terkunci |
-| 2 | Setup project, Streamlit skeleton, Pydantic schemas | Aplikasi dapat dijalankan |
+| 2 | Setup monorepo, FastAPI skeleton + React frontend, Pydantic schemas | Aplikasi dapat dijalankan end-to-end (hello world) |
 | 3 | Siapkan dataset, taxonomy, dan ingestion pipeline | Minimal 120 lowongan berhasil diproses |
 | 4 | ChromaDB retrieval dan MCP server | Tools dapat dipanggil dan diuji |
 | 5 | Profile Agent dan Market Evidence Agent | Satu profil menghasilkan evidence untuk satu role |
@@ -747,7 +760,7 @@ Reviewer memberi skor 1–5 untuk:
 |---|---|---|
 | 6 | Match and Gap Agent + deterministic scoring | Skor dapat dihitung ulang |
 | 7 | Roadmap Planner + Report and Quality Agent | Draft Career Blueprint tersedia |
-| 8 | LangGraph integration, conditional routing, UI | End-to-end workflow berjalan |
+| 8 | Agno orchestrator integration, conditional routing, frontend wiring | End-to-end workflow berjalan |
 | 9 | Evaluation, guardrails, error handling, bug fixing | P0 acceptance tests lulus |
 | 10 | README, architecture docs, demo data, rehearsal | Project siap dipresentasikan |
 
@@ -760,7 +773,7 @@ Hari ke-9 dan ke-10 juga berfungsi sebagai buffer. Fitur P1 hanya dikerjakan jik
 MVP dinyatakan selesai ketika:
 
 - Seluruh requirement P0 berfungsi.
-- Minimal empat sub-agent terhubung dalam LangGraph.
+- Minimal empat sub-agent terhubung dalam workflow via Python orchestrator + Agno Agent instances.
 - Minimal satu conditional branch berhasil didemonstrasikan.
 - Agent menggunakan tools melalui MCP server.
 - ChromaDB menyimpan dan mencari job postings.
@@ -785,7 +798,7 @@ MVP dinyatakan selesai ketika:
 | MCP | Local MCP server | Daftar tools dan tool calls |
 | Vector DB | ChromaDB | Ingestion summary dan retrieval result |
 | Embeddings | Job dan resource embeddings | Chroma collection |
-| Sub-agents | Empat specialized agents | LangGraph nodes |
+| Sub-agents | Empat specialized agents | Workflow nodes (Agno Agent instances) |
 | Agentic Workflow | Conditional routing dan quality retry | Workflow visualization |
 | Minimum satu AI Agent | Profile, Market, Match, Roadmap, Quality Agent | Structured agent outputs |
 | Deadline dua minggu | Scope P0 dan jadwal 10 hari | Milestone minggu 1 dan 2 |
