@@ -63,7 +63,7 @@ Data flows top to bottom; Redis acts as Celery broker + PubSub channel for SSE p
 ### 2. Clone Repository
 
 ```bash
-git clone https://github.com/username/career-compass.git
+git clone https://github.com/aharisfahmi/career-compass.git
 cd career-compass
 ```
 
@@ -160,7 +160,7 @@ uv run uvicorn app.api.main:app --reload --port 8000
 
 ```bash
 cd apps/agent-api
-uv run celery -A app.core.celery_app worker --loglevel=info
+uv run celery -A app.core.celery_app worker --loglevel=info --pool=threads
 ```
 
 **Terminal 3 — React frontend:**
