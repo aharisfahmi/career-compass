@@ -18,7 +18,17 @@ async def main():
 
     state: CareerOptimizerState = {
         "raw_cv_text": raw_cv,
-        "user_input_form": {},
+        "user_input_form": {
+            "full_name": "Ahmad Haris Fahmi",
+            "current_role": "Backend Developer",
+            "years_of_experience": 6,
+            "hard_skills": ["Golang", "PHP", "PostgreSQL", "Docker", "Redis"],
+            "soft_skills": ["Komunikasi", "Teamwork"],
+            "education": "S1 Informatika",
+            "target_roles": ["Golang Developer", "PHP Developer", "Senior Backend Developer"],
+            "learning_hours_per_week": 20,
+            "budget_idr": 5000000,
+        },
         "confirmed_profile": {},
         "retrieved_jobs": [],
         "market_stats": {},

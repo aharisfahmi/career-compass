@@ -6,30 +6,19 @@ import {
   useParams,
 } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { Layout } from "../components/Layout";
 import { ProfileForm } from "../components/ProfileForm";
 import { CvUpload } from "../components/CvUpload";
-import { WorkflowProgress } from "../components/WorkflowProgress";
+import { ConfirmProfile } from "../components/ConfirmProfile";
+import { ProcessingView } from "../components/ProcessingView";
 import { CareerBlueprint as CareerBlueprintComponent } from "../components/CareerBlueprint";
-import { AgentTrace } from "../components/AgentTrace";
 import { useWorkflowStream } from "../hooks/useWorkflowStream";
-
-const btnStyle: React.CSSProperties = {
-  padding: "12px 24px",
-  background: "#0070f3",
-  color: "white",
-  border: "none",
-  borderRadius: "8px",
-  cursor: "pointer",
-  marginRight: "12px",
-  marginTop: "16px",
-  fontSize: "16px",
-};
 
 const rootRoute = createRootRoute({
   component: () => (
-    <div style={{ padding: "20px", maxWidth: "900px", margin: "0 auto" }}>
+    <Layout>
       <Outlet />
-    </div>
+    </Layout>
   ),
 });
 
@@ -38,7 +27,6 @@ function HomePage() {
   const [formData, setFormData] = useState<any>(null);
   const [cvText, setCvText] = useState<string>("");
   const { events, isStreaming, error, startStream, stopStream } = useWorkflowStream();
-  const [showResult, setShowResult] = useState(false);
 
   const handleSubmit = (data: any) => {
     setFormData(data);
@@ -61,61 +49,78 @@ function HomePage() {
     setStep("input");
     setFormData(null);
     setCvText("");
-    setShowResult(false);
     stopStream();
   };
 
   const finishEvent = events.find((e) => e.type === "finish");
-  if (finishEvent && step === "processing" && !showResult) {
-    setTimeout(() => setShowResult(true), 300);
-  }
-
-  if (step === "input") {
-    return (
-      <>
-        <h1>CareerCompass</h1>
-        <CvUpload onExtracted={handleCvExtracted} />
-        <hr style={{ margin: "20px 0" }} />
-        <ProfileForm onSubmit={handleSubmit} cvText={cvText} />
-      </>
-    );
-  }
-
-  if (step === "confirm") {
-    return (
-      <div>
-        <h2>Konfirmasi Profil</h2>
-        <pre style={{ background: "#f5f5f5", padding: "16px", borderRadius: "8px" }}>
-          {JSON.stringify(formData, null, 2)}
-        </pre>
-        {cvText && <p style={{ color: "green" }}>CV berhasil diproses</p>}
-        <button onClick={handleConfirm} style={btnStyle}>
-          Proses Career Blueprint
-        </button>
-        <button onClick={handleReset} style={{ ...btnStyle, background: "#999" }}>
-          Edit Kembali
-        </button>
-      </div>
-    );
-  }
-
-  if (step === "processing" && !showResult) {
-    return (
-      <div>
-        <h2>Memproses...</h2>
-        <WorkflowProgress events={events} />
-        <AgentTrace events={events} />
-        {error && <p style={{ color: "red" }}>Error: {error}</p>}
-      </div>
-    );
+  if (finishEvent && step === "processing" && !isStreaming) {
+    setTimeout(() => setStep("result"), 400);
   }
 
   return (
-    <div>
-      <CareerBlueprintComponent events={events} />
-      <button onClick={handleReset} style={btnStyle}>
-        Mulai Lagi
-      </button>
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      {step === "input" && (
+        <div className="animate-fade-in">
+          <div className="text-center mb-10">
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[var(--color-text-heading)]">
+              Career<span className="text-[var(--color-brand-600)]">Compass</span>
+            </h1>
+            <p className="mt-3 text-base sm:text-lg text-[var(--color-text-secondary)] max-w-xl mx-auto">
+              Temukan jalur karier terbaikmu. Analisis berbasis AI dan data pasar kerja nyata.
+            </p>
+          </div>
+          <div className="grid lg:grid-cols-5 gap-6 items-start">
+            <div className="lg:col-span-2">
+              <div className="sticky top-24">
+                <h2 className="text-sm font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider mb-4">Upload CV</h2>
+                <CvUpload onExtracted={handleCvExtracted} />
+                <div className="mt-6 text-center">
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-[var(--color-border)]" />
+                    </div>
+                    <div className="relative flex justify-center">
+                      <span className="bg-[var(--color-surface-secondary)] px-3 text-xs text-[var(--color-text-secondary)]">atau isi manual</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="lg:col-span-3">
+              <ProfileForm onSubmit={handleSubmit} cvText={cvText} />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {step === "confirm" && (
+        <ConfirmProfile
+          formData={formData}
+          cvText={cvText}
+          onConfirm={handleConfirm}
+          onBack={handleReset}
+        />
+      )}
+
+      {step === "processing" && !finishEvent && (
+        <ProcessingView events={events} error={error} />
+      )}
+
+      {step === "result" && (
+        <div className="animate-fade-in">
+          <CareerBlueprintComponent events={events} />
+          <div className="mt-10 text-center">
+            <button onClick={handleReset}
+              className="inline-flex items-center gap-2 rounded-[var(--radius-card)] border border-[var(--color-border)] px-6 py-3 text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface-tertiary)] active:scale-[0.98] transition-all"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182" />
+              </svg>
+              Mulai Lagi
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -140,13 +145,13 @@ function BlueprintPage() {
     );
   }, [sessionId]);
 
-  if (loading) return <p>Loading...</p>;
-  if (!data) return <p>Session not found</p>;
+  if (loading) return <div className="text-center py-20 text-[var(--color-text-secondary)]">Loading...</div>;
+  if (!data) return <div className="text-center py-20 text-[var(--color-text-secondary)]">Session not found</div>;
 
   return (
-    <div>
-      <h2>Career Blueprint - {sessionId}</h2>
-      <pre style={{ background: "#f5f5f5", padding: "16px", borderRadius: "8px", overflow: "auto" }}>
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <h2 className="text-2xl font-bold text-[var(--color-text-heading)] mb-6">Career Blueprint - {sessionId}</h2>
+      <pre className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-6 text-sm overflow-auto">
         {JSON.stringify(data.blueprint, null, 2)}
       </pre>
     </div>

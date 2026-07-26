@@ -53,7 +53,14 @@ async def _run_profile_step(state: CareerOptimizerState, emit) -> CareerOptimize
     await emit({"type": "start_step", "step": "profile", "label": "Menganalisis Profil"})
     try:
         agent = build_profile_agent()
-        raw = state.get("raw_cv_text") or json.dumps(state.get("user_input_form", {}))
+        raw_cv = state.get("raw_cv_text", "")
+        raw_form = state.get("user_input_form", {})
+        if raw_cv and raw_form:
+            raw = f"{raw_cv}\n\n--- Data Form ---\n{json.dumps(raw_form)}"
+        elif raw_cv:
+            raw = raw_cv
+        else:
+            raw = json.dumps(raw_form)
         result = await agent.arun(raw)
         content = result.content if hasattr(result, "content") else result
         if hasattr(content, "model_dump"):
@@ -62,6 +69,9 @@ async def _run_profile_step(state: CareerOptimizerState, emit) -> CareerOptimize
             state["confirmed_profile"] = content
         else:
             state["confirmed_profile"] = json.loads(content) if isinstance(content, (str, bytes, bytearray)) else content
+        form_targets = state.get("user_input_form", {}).get("target_roles")
+        if form_targets:
+            state["confirmed_profile"]["target_roles"] = form_targets
         state["execution_logs"].append({"step": "profile", "status": "ok"})
     except Exception as e:
         logger.error(f"Profile step error: {e}")
@@ -108,16 +118,30 @@ async def _run_match_step(state: CareerOptimizerState, emit) -> CareerOptimizerS
         for role in target_roles:
             role_jobs = [j for j in state.get("retrieved_jobs", []) if j.get("normalized_role", "").lower() == role.lower()]
             required_skills_raw = "|".join([j.get("required_skills", "") for j in role_jobs])
-            required_skills = [s.strip() for s in required_skills_raw.split("|") if s.strip()] if required_skills_raw else []
-            user_skills = profile.get("hard_skills", []) + profile.get("soft_skills", [])
+            required_skills_raw_list = [s.strip() for s in required_skills_raw.split("|") if s.strip()] if required_skills_raw else []
+            user_skills_raw = profile.get("hard_skills", []) + profile.get("soft_skills", [])
+
+            from app.utils.skill_taxonomy import normalize_skills
+            user_skills = [ns["canonical"] for ns in normalize_skills(user_skills_raw)]
+            required_skills = [ns["canonical"] for ns in normalize_skills(required_skills_raw_list)]
 
             from app.utils.scoring import calculate_role_fit_score
+            required_experiences = []
+            for j in role_jobs:
+                exp_val = j.get("minimum_experience")
+                if exp_val is not None:
+                    try:
+                        required_experiences.append(float(exp_val))
+                    except (ValueError, TypeError):
+                        pass
+            avg_required_exp = (sum(required_experiences) / max(len(required_experiences), 1)) if required_experiences else 2.0
+            primary_interest = [target_roles[0]] if target_roles else []
             result = calculate_role_fit_score(
                 user_skills=user_skills,
                 required_skills=list(set(required_skills)),
                 user_exp_years=profile.get("years_of_experience", 0),
-                required_exp_years=2.0,
-                user_interests=profile.get("target_roles", []),
+                required_exp_years=avg_required_exp,
+                user_interests=primary_interest,
                 target_role=role,
                 retrieved_jobs_count=len(role_jobs),
             )
@@ -145,19 +169,40 @@ async def _run_roadmap_step(state: CareerOptimizerState, emit) -> CareerOptimize
     try:
         profile = state.get("confirmed_profile", {})
         evaluated = state.get("evaluated_roles", [])
-        top_role = evaluated[0] if evaluated else {"role_name": "Data Analyst"}
+        top_role = max(evaluated, key=lambda r: r.get("total_score", 0)) if evaluated else {"role_name": "Data Analyst"}
         target_role = top_role.get("role_name", "Data Analyst")
 
-        missing = top_role.get("missing_critical_skills", [])
+        raw_missing = top_role.get("missing_critical_skills", [])
+        missing: list[str] = raw_missing if isinstance(raw_missing, list) else []
 
         from app.services.vector_store import search_learning_chroma
         resources = search_learning_chroma(missing if missing else ["Python"], language="id", top_k=5)
 
+        if len(missing) >= 3:
+            phase_30 = missing[::3]
+            phase_60 = missing[1::3]
+            phase_90 = missing[2::3]
+        elif len(missing) == 2:
+            phase_30 = missing[:1]
+            phase_60 = missing[1:]
+            phase_90 = []
+        elif len(missing) == 1:
+            phase_30 = missing[:]
+            phase_60 = missing[:]
+            phase_90 = []
+        else:
+            phase_30 = []
+            phase_60 = []
+            phase_90 = []
+
+        def _alloc(skills_subset, start, count):
+            return [{"skill": s, "action": f"Pelajari dasar-dasar {s}", "resources": [r.get("title", "") for r in resources[start:start+count]]} for s in skills_subset]
+
         roadmap = {
             "target_role": target_role,
-            "phase_30_days": [{"skill": s, "action": f"Pelajari dasar-dasar {s}", "resources": [r.get("title", "") for r in resources[:2]]} for s in missing[:3]],
-            "phase_60_days": [{"skill": s, "action": f"Perdalam {s} dengan proyek nyata", "resources": [r.get("title", "") for r in resources[2:4]]} for s in missing[3:5]] if len(missing) > 3 else [],
-            "phase_90_days": [{"skill": s, "action": f"Bangun portofolio untuk {s}", "resources": [r.get("title", "") for r in resources[4:]]} for s in missing[5:7]] if len(missing) > 5 else [],
+            "phase_30_days": _alloc(phase_30, 0, 2),
+            "phase_60_days": _alloc(phase_60, 2, 2),
+            "phase_90_days": _alloc(phase_90, 4, 2),
             "priority_skills": missing[:5] if missing else ["Python", "SQL"],
             "resources": resources,
         }

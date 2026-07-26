@@ -27,13 +27,38 @@ def ingest_jobs(csv_path: str, recreate: bool = False) -> dict:
     if recreate:
         existing_count = 0
 
-    ids, embeddings, documents, metadatas = [], [], [], []
+    texts = []
     for _, row in df.iterrows():
-        text = f"{row['title']} | {row['description']}"
-        emb = embed_client.embeddings.create(
-            input=text,
-            model=settings.EMBEDDING_MODEL,
-        ).data[0].embedding
+        texts.append(f"{row['title']} | {row['description']}")
+
+    import time
+
+    batch_size = 5
+    all_embeddings = []
+    for i in range(0, len(texts), batch_size):
+        batch = texts[i:i + batch_size]
+        for attempt in range(5):
+            try:
+                resp = embed_client.embeddings.create(
+                    input=batch,
+                    model=settings.EMBEDDING_MODEL,
+                )
+                all_embeddings.extend([d.embedding for d in resp.data])
+                break
+            except Exception as ex:
+                if "429" in str(ex) or "quota" in str(ex).lower() or "rate" in str(ex).lower():
+                    wait = 2 ** attempt * 5
+                    print(f"  Rate limited, waiting {wait}s (attempt {attempt+1})...")
+                    time.sleep(wait)
+                else:
+                    raise
+        if i + batch_size < len(texts):
+            time.sleep(2)
+
+    ids, embeddings, documents, metadatas = [], [], [], []
+    for idx, (_, row) in enumerate(df.iterrows()):
+        text = texts[idx]
+        emb = all_embeddings[idx]
 
         meta = row.to_dict()
         meta["required_skills"] = str(meta.get("required_skills", ""))

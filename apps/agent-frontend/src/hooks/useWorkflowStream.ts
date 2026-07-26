@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import type { WorkflowEvent } from "../lib/types";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_BASE = import.meta.env.VITE_API_URL || "";
 
 export function useWorkflowStream() {
   const [events, setEvents] = useState<WorkflowEvent[]>([]);
