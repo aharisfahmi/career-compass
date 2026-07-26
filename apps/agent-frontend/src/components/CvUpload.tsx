@@ -20,7 +20,7 @@ export function CvUpload({ onExtracted }: Props) {
     formData.append("file", file);
 
     try {
-      const res = await fetch(`${API_BASE}/profile/upload-cv`, {
+      const res = await fetch(`${API_BASE}/api/v1/profile/upload-cv`, {
         method: "POST",
         body: formData,
       });

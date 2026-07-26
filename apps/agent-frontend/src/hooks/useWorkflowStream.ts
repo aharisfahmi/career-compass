@@ -18,14 +18,14 @@ export function useWorkflowStream() {
     setIsStreaming(true);
 
     try {
-      const res = await fetch(`${API_BASE}/workflow/submit`, {
+      const res = await fetch(`${API_BASE}/api/v1/workflow/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ initial_state: initialState }),
       });
       const { job_id } = await res.json();
 
-      const es = new EventSource(`${API_BASE}/workflow/${job_id}/stream`);
+      const es = new EventSource(`${API_BASE}/api/v1/workflow/${job_id}/stream`);
       eventSourceRef.current = es;
 
       es.onmessage = (event) => {

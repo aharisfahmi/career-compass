@@ -1,7 +1,7 @@
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export async function submitWorkflow(initialState: any): Promise<{ job_id: string }> {
-  const res = await fetch(`${API_BASE}/workflow/submit`, {
+  const res = await fetch(`${API_BASE}/api/v1/workflow/submit`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ initial_state: initialState }),
@@ -10,7 +10,7 @@ export async function submitWorkflow(initialState: any): Promise<{ job_id: strin
 }
 
 export async function extractProfile(formData: any, cvText?: string): Promise<{ profile: any }> {
-  const res = await fetch(`${API_BASE}/profile/extract`, {
+  const res = await fetch(`${API_BASE}/api/v1/profile/extract`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ form_data: formData, cv_text: cvText }),
@@ -19,6 +19,6 @@ export async function extractProfile(formData: any, cvText?: string): Promise<{ 
 }
 
 export async function getSession(sessionId: string): Promise<{ session_id: string; blueprint: any }> {
-  const res = await fetch(`${API_BASE}/session/${sessionId}`);
+  const res = await fetch(`${API_BASE}/api/v1/session/${sessionId}`);
   return res.json();
 }
