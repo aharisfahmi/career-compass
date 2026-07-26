@@ -20,6 +20,6 @@ def build_quality_agent() -> Agent:
             "Tandai limitation jika confidence level rendah atau retrieved_jobs < 5.",
             "Set quality_approved = True hanya jika semua kriteria terpenuhi.",
         ],
-        output_model=CareerBlueprint,
+        output_schema=CareerBlueprint,
         structured_outputs=True,
     )

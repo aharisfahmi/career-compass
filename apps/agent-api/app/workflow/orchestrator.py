@@ -45,7 +45,7 @@ async def run_workflow(
         state = await _run_roadmap_step(state, _emit)
         state = await _run_quality_step(state, _emit)
 
-    await _emit({"type": "finish", "status": "completed" if state["quality_approved"] else "completed_with_warnings"})
+    await _emit({"type": "finish", "status": "completed" if state["quality_approved"] else "completed_with_warnings", "blueprint": state.get("career_blueprint", {})})
     return state
 
 

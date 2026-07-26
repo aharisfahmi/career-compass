@@ -21,6 +21,6 @@ def build_market_agent() -> Agent:
             "Output harus menyertakan evidence_job_ids dari ChromaDB.",
             "Jangan membuat data lowongan palsu.",
         ],
-        output_model=MarketEvidence,
+        output_schema=MarketEvidence,
         structured_outputs=True,
     )

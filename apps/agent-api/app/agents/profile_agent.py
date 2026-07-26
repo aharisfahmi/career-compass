@@ -18,6 +18,6 @@ def build_profile_agent() -> Agent:
             "Jangan menyimpulkan skill yang tidak disebut.",
             "Abaikan atribut sensitif seperti usia, agama, status pernikahan.",
         ],
-        output_model=ExtractedProfile,
+        output_schema=ExtractedProfile,
         structured_outputs=True,
     )

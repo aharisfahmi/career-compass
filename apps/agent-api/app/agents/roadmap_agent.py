@@ -20,6 +20,6 @@ def build_roadmap_agent() -> Agent:
             "Sesuaikan dengan jam belajar per minggu dan budget pengguna.",
             "Cantumkan URL sumber belajar yang valid.",
         ],
-        output_model=LearningRoadmap,
+        output_schema=LearningRoadmap,
         structured_outputs=True,
     )
