@@ -1,5 +1,8 @@
+import logging
 import chromadb
 from app.core.config import settings
+
+logger = logging.getLogger(__name__)
 
 
 def get_chroma_client() -> chromadb.PersistentClient:
@@ -25,6 +28,32 @@ def get_learning_collection() -> chromadb.Collection:
 def _keyword_score(text: str, query_terms: list[str]) -> int:
     text_lower = text.lower()
     return sum(1 for t in query_terms if t in text_lower)
+
+
+def search_jobs_web(query: str, top_k: int = 5) -> list[dict]:
+    try:
+        from app.services.web_search import tavily_search
+        results = tavily_search(f"{query} lowongan kerja job Indonesia 2024 2025", max_results=top_k)
+        parsed = []
+        for r in results:
+            parsed.append({
+                "id": f"web-{hash(r['url'])}",
+                "title": r["title"],
+                "document": r["snippet"],
+                "description": r["snippet"],
+                "source_url": r["url"],
+                "company": "",
+                "location": "Indonesia",
+                "required_skills": "",
+                "normalized_role": query,
+                "distance": 0.0,
+                "source": "tavily",
+            })
+        return parsed
+    except Exception as e:
+        logger.warning(f"Tavily job search failed for '{query}': {e}")
+        return []
+        return []
 
 
 def search_jobs(
@@ -59,7 +88,20 @@ def search_jobs(
         if score > 0:
             scored.append((score, d))
     scored.sort(key=lambda x: -x[0])
-    return [d for _, d in scored[:top_k]]
+    result = [d for _, d in scored]
+
+    has_exact = any(d.get("normalized_role", "").lower() == query.lower() for d in result) if role else False
+    needs_fallback = len(result) < 3 or (role and not has_exact)
+    if needs_fallback:
+        web = search_jobs_web(query, top_k=top_k)
+        existing_urls = {j.get("source_url", "") for j in result}
+        for w in web:
+            if w.get("source_url", "") not in existing_urls:
+                result.append(w)
+                existing_urls.add(w.get("source_url", ""))
+
+    result.sort(key=lambda d: (d.get("normalized_role", "").lower() == query.lower() if role else True, d.get("source", "") == "chromadb"), reverse=True)
+    return result[:top_k]
 
 
 def search_learning_chroma(

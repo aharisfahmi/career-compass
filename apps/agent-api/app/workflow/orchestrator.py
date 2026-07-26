@@ -70,7 +70,7 @@ async def _run_profile_step(state: CareerOptimizerState, emit) -> CareerOptimize
         else:
             state["confirmed_profile"] = json.loads(content) if isinstance(content, (str, bytes, bytearray)) else content
         form_targets = state.get("user_input_form", {}).get("target_roles")
-        if form_targets:
+        if form_targets is not None:
             state["confirmed_profile"]["target_roles"] = form_targets
         state["execution_logs"].append({"step": "profile", "status": "ok"})
     except Exception as e:
@@ -85,7 +85,10 @@ async def _run_market_step(state: CareerOptimizerState, emit) -> CareerOptimizer
     await emit({"type": "start_step", "step": "market", "label": "Mengumpulkan Data Pasar"})
     try:
         profile = state.get("confirmed_profile", {})
-        target_roles = profile.get("target_roles", ["Data Analyst"])
+        target_roles = profile.get("target_roles", [])
+        if not target_roles:
+            current_role = profile.get("current_role", "")
+            target_roles = [current_role] if current_role else ["Software Engineer"]
         all_jobs = []
         all_stats = {}
         for role in target_roles:
@@ -114,6 +117,9 @@ async def _run_match_step(state: CareerOptimizerState, emit) -> CareerOptimizerS
     try:
         profile = state.get("confirmed_profile", {})
         target_roles = profile.get("target_roles", [])
+        if not target_roles:
+            current_role = profile.get("current_role", "")
+            target_roles = [current_role] if current_role else ["Software Engineer"]
         all_evaluations = []
         for role in target_roles:
             role_jobs = [j for j in state.get("retrieved_jobs", []) if j.get("normalized_role", "").lower() == role.lower()]
@@ -177,6 +183,26 @@ async def _run_roadmap_step(state: CareerOptimizerState, emit) -> CareerOptimize
 
         from app.services.vector_store import search_learning_chroma
         resources = search_learning_chroma(missing if missing else ["Python"], language="id", top_k=5)
+        if len(resources) < 3:
+            from app.services.web_search import tavily_search
+            try:
+                web_resources = tavily_search(f"{' '.join(missing if missing else ['Python'])} tutorial course Indonesia", max_results=5)
+                existing_titles = {r["title"] for r in resources}
+                for wr in web_resources:
+                    if wr["title"] not in existing_titles:
+                        resources.append({
+                            "title": wr["title"],
+                            "provider": wr.get("snippet", "")[:80],
+                            "url": wr["url"],
+                            "cost_idr": 0,
+                            "duration_hours": 0,
+                            "language": "id",
+                            "source": wr["source"],
+                            "last_verified_at": "",
+                        })
+                        existing_titles.add(wr["title"])
+            except Exception as e:
+                logger.warning(f"Tavily learning search failed: {e}")
 
         if len(missing) >= 3:
             phase_30 = missing[::3]

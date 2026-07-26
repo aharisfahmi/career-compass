@@ -30,7 +30,7 @@ async def upload_cv(file: UploadFile = File(...)):
 
     contents = await file.read()
 
-    if file.filename.lower().endswith(".txt"):
+    if file.filename.lower().endswith((".txt", ".md")):
         text = contents.decode("utf-8", errors="replace")
         return {"cv_text": text}
 
@@ -42,4 +42,4 @@ async def upload_cv(file: UploadFile = File(...)):
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"OCR failed: {str(e)}")
 
-    raise HTTPException(status_code=400, detail="Supported formats: .pdf, .txt")
+    raise HTTPException(status_code=400, detail="Supported formats: .pdf, .txt, .md")

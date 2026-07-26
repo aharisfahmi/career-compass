@@ -21,10 +21,10 @@ export function CvUpload({ onExtracted }: Props) {
     try {
       const res = await fetch(`${API_BASE}/api/v1/profile/upload-cv`, { method: "POST", body: formData });
       const data = await res.json();
-      setResult("CV berhasil diproses");
+      setResult("Berhasil diproses");
       onExtracted(data.cv_text);
     } catch {
-      setResult("Gagal memproses CV");
+      setResult("Gagal memproses file");
     } finally {
       setUploading(false);
     }
@@ -52,7 +52,7 @@ export function CvUpload({ onExtracted }: Props) {
       <input
         ref={inputRef}
         type="file"
-        accept=".pdf,.txt"
+        accept=".pdf,.txt,.md"
         className="hidden"
         onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUpload(f); }}
       />
@@ -63,7 +63,7 @@ export function CvUpload({ onExtracted }: Props) {
           </svg>
         </div>
         <div>
-          <p className="font-medium text-[var(--color-text-heading)]">Upload CV (PDF / TXT)</p>
+          <p className="font-medium text-[var(--color-text-heading)]">Upload CV (PDF / TXT / MD)</p>
           <p className="text-sm text-[var(--color-text-secondary)] mt-1">Seret file ke sini atau klik untuk memilih</p>
         </div>
         {uploading && (

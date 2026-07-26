@@ -1,0 +1,1110 @@
+{
+  "raw_cv_text": "\ufeffAhmad Haris Fahmi \naharisfahmi.work@gmail.com | +6285384568854 | https://www.linkedin.com/in/aharisfahmi | https://aharisfahmi.github.io\n  \n\n\n\nSUMMARY\nBackend Developer with 6 years of experience in Golang and PHP, building backend systems across enterprise financial ERP, university-scale HRIS and attendance platforms. Strong in REST API development, database performance tuning, and maintaining reliable transaction-heavy services in production environments.\n\n\nEXPERIENCE\nBackend Developer | PT. Zahir Internasional        Feb 2022 - Jun 2025\n* Maintained dual-core backend architecture serving 4 production applications (Zahir ERP, ZahirOnline, Zahir PosX, Zahir HR) supporting 500+ clients with zero-downtime during system transition period.\n* Contributed to report-generator rewrite (Node.js to Golang), translated core report logic and implemented initial Go endpoints, lowering memory footprint by 100+ MB and removing large-report out of memory failures in production.\n* Resolved 25+ critical financial reporting bugs including journal inconsistencies, calculation errors, and duplicate data issues affecting profit/loss statements and balance sheets.\n* Fixed 15+ transaction processing bugs addressing serial number tracking errors, inventory validation issues, and multi-currency calculation problems.\n* Developed backend data-adapter endpoints to feed Jasper/HTML report templates (20+ templates) including profit/loss statements, inventory analysis, and payment tracking reports.\n* Enhanced accrual handling, implemented partial allocation logic for accrued expenses/incomes and backend APIs to surface accruals in invoice flows and reports.\n* Developed inventory tracking features including lot/serial number validation across multiple transaction types (transfers, adjustments, production).\n* Optimized report queries and filters for financial statements including budget variance analysis, improving data accuracy and resolving calculation errors across departmental and project-level reports.\n\n\nProgrammer (Backend) | Universitas Islam Indonesia        May 2019 - Dec 2021\n* Built microservices-based attendance system migration from legacy MS Access fingerprint system to online platform during COVID-19, serving 3000+ daily users.\n* Developed database migration service to automate attendance data transfer (2000+ records daily), eliminating manual errors and ensuring data consistency.\n* Built employee management system serving 3000+ daily users, standardizing workflows across multiple domains (academic, admissions, finance).\n* Configured Kafka Connect connectors (registered source & sink) for cross-database synchronization, enabling real-time data propagation across microservices without manual ETL processes.\n* Designed and developed REST APIs with performance optimizations including database indexing and caching strategies.\n* Onboarded and mentored 8+ team members through system walkthroughs, knowledge-sharing sessions, and technical guidance.\n* Collaborated with cross-functional stakeholders to ensure system requirements alignment and successful project delivery.\n* Maintained technical documentation in Confluence and performed comprehensive API validation testing.\n\n\nIntern Web Developer | Komuri GeekGarden                                                        Nov 2017 - Dec 2017\n* Contributed to production web applications using PHP (Laravel) and MySQL.\n* Developed an internal project management application with task tracking functionality.\n* Collaborated with senior developers on code reviews and learned software development best practices.\n\n\n\n\nWeb Programming Lab Assistant | Universitas Islam Indonesia        Mar 2017 - Jun 2017\n* Delivered web programming lectures covering HTML, CSS, JavaScript, and web fundamentals.\n* Mentored 10 students through course assignments and project work.\nEDUCATION\nUniversitas Islam Indonesia | Informatika | CGPA: 3.76        Sep 2014 - Feb 2019\n\n\nSKILL\n* Backend Development: Golang, PHP (Laravel/Lumen), REST APIs, Microservices Architecture, Service-Oriented Architecture, Object-Oriented Programming, Software Development Life Cycle, Agile/Scrum, System Design, Legacy System Migration.\n* Frontend Development: JavaScript, jQuery, HTML, CSS, Bootstrap.\n* Databases & Data: PostgreSQL, MySQL, MS Access, Redis (Caching), Database Optimization, Query Performance Tuning, Indexing, Data Migration, ETL Processes, Kafka Connect (Data Synchronization).\n* Tools & Technologies: Docker, Git, Linux, Confluence, Postman, Jasper Reports, AWS S3.\n* Performance & Quality: Performance Tuning, Memory Optimization, Debugging, Root Cause Analysis, Code Review, Pair Programming, Manual Testing, API Testing, Production Support, Incident Resolution.\n* Business Domains: ERP Software (Inventory, Finance, Manufacturing), Financial Systems (Accounting, Multi-Currency, Budget Analysis), HR Information Systems, Project Management Systems, Reporting & Analytics.\n* Soft Skills: Cross-functional Collaboration, Technical Mentoring & Knowledge Transfer, Technical Documentation, Problem Solving & Analytical Thinking.",
+  "user_input_form": {
+    "full_name": "Ahmad Haris Fahmi",
+    "current_role": "Backend Developer",
+    "years_of_experience": 6,
+    "hard_skills": [
+      "Golang",
+      "PHP",
+      "PostgreSQL",
+      "Docker",
+      "Redis"
+    ],
+    "soft_skills": [
+      "Komunikasi",
+      "Teamwork"
+    ],
+    "education": "S1 Informatika",
+    "target_roles": [
+      "Golang Developer",
+      "PHP Developer",
+      "Senior Backend Developer"
+    ],
+    "learning_hours_per_week": 20,
+    "budget_idr": 5000000
+  },
+  "confirmed_profile": {
+    "full_name": "Ahmad Haris Fahmi",
+    "current_role": "Backend Developer",
+    "years_of_experience": 6.0,
+    "hard_skills": [
+      "Golang",
+      "PHP",
+      "PostgreSQL",
+      "MySQL",
+      "Redis",
+      "Docker",
+      "REST APIs",
+      "Microservices",
+      "Kafka Connect",
+      "Git"
+    ],
+    "soft_skills": [
+      "Cross-functional Collaboration",
+      "Technical Mentoring & Knowledge Transfer",
+      "Technical Documentation",
+      "Problem Solving & Analytical Thinking"
+    ],
+    "education": "S1 Informatika",
+    "target_roles": [
+      "Golang Developer",
+      "PHP Developer",
+      "Senior Backend Developer"
+    ],
+    "learning_hours_per_week": 10,
+    "budget_idr": 0.0
+  },
+  "retrieved_jobs": [
+    {
+      "id": "JOB-127",
+      "document": "Golang Developer - Platform | Mengembangkan platform e-commerce backend dengan performa tinggi menggunakan Go.",
+      "distance": 0.23295867443084717,
+      "minimum_experience": 3,
+      "seniority": "Mid",
+      "work_mode": "Onsite",
+      "title": "Golang Developer - Platform",
+      "salary_min": 16000000,
+      "location": "Jakarta",
+      "required_skills": "Go|PostgreSQL|gRPC|Docker|Redis|Kafka",
+      "description": "Mengembangkan platform e-commerce backend dengan performa tinggi menggunakan Go.",
+      "collected_at": "2026-07-10",
+      "normalized_role": "Golang Developer",
+      "company": "Shopee Indonesia",
+      "preferred_skills": "Kubernetes|Microservices|Elasticsearch",
+      "salary_max": 23000000,
+      "currency": "IDR",
+      "published_at": "2026-06-21",
+      "source_url": "https://example.com/job/127"
+    },
+    {
+      "id": "JOB-123",
+      "document": "Golang Developer | Mengembangkan API gateway dan service mesh untuk platform tiket.",
+      "distance": 0.234521746635437,
+      "preferred_skills": "Kubernetes|Kafka|Microservices",
+      "source_url": "https://example.com/job/123",
+      "location": "Jakarta",
+      "normalized_role": "Golang Developer",
+      "currency": "IDR",
+      "required_skills": "Go|PostgreSQL|gRPC|Redis|Docker",
+      "company": "Tiket.com",
+      "salary_max": 22000000,
+      "title": "Golang Developer",
+      "minimum_experience": 3,
+      "seniority": "Mid",
+      "work_mode": "Hybrid",
+      "collected_at": "2026-07-10",
+      "published_at": "2026-06-17",
+      "salary_min": 15000000,
+      "description": "Mengembangkan API gateway dan service mesh untuk platform tiket."
+    },
+    {
+      "id": "JOB-121",
+      "document": "Golang Backend Developer | Mengembangkan microservices high-throughput untuk platform ride-hailing menggunakan Go.",
+      "distance": 0.23586368560791016,
+      "minimum_experience": 3,
+      "preferred_skills": "Kubernetes|Microservices|Protocol Buffers",
+      "location": "Jakarta",
+      "required_skills": "Go|PostgreSQL|gRPC|Docker|Redis|Kafka",
+      "work_mode": "Hybrid",
+      "seniority": "Mid",
+      "source_url": "https://example.com/job/121",
+      "salary_min": 16000000,
+      "collected_at": "2026-07-10",
+      "salary_max": 23000000,
+      "published_at": "2026-06-15",
+      "currency": "IDR",
+      "normalized_role": "Golang Developer",
+      "title": "Golang Backend Developer",
+      "description": "Mengembangkan microservices high-throughput untuk platform ride-hailing menggunakan Go.",
+      "company": "Gojek"
+    },
+    {
+      "id": "JOB-131",
+      "document": "Senior Golang Developer | Memimpin pengembangan sistem backend e-commerce berskala besar dengan Go.",
+      "distance": 0.24049913883209229,
+      "company": "Blibli",
+      "salary_max": 34000000,
+      "location": "Bandung",
+      "normalized_role": "Golang Developer",
+      "minimum_experience": 5,
+      "work_mode": "Remote",
+      "salary_min": 24000000,
+      "collected_at": "2026-07-10",
+      "title": "Senior Golang Developer",
+      "source_url": "https://example.com/job/131",
+      "currency": "IDR",
+      "description": "Memimpin pengembangan sistem backend e-commerce berskala besar dengan Go.",
+      "published_at": "2026-06-25",
+      "seniority": "Senior",
+      "required_skills": "Go|PostgreSQL|gRPC|Docker|Kubernetes|Redis|Kafka|Microservices",
+      "preferred_skills": "AWS|Protocol Buffers|Distributed Systems"
+    },
+    {
+      "id": "JOB-129",
+      "document": "Junior Go Developer | Membantu pengembangan backend perbankan digital menggunakan bahasa Go.",
+      "distance": 0.24473559856414795,
+      "title": "Junior Go Developer",
+      "location": "Jakarta",
+      "collected_at": "2026-07-10",
+      "published_at": "2026-06-23",
+      "preferred_skills": "gRPC|Kafka|Microservices",
+      "salary_max": 12000000,
+      "work_mode": "Onsite",
+      "currency": "IDR",
+      "minimum_experience": 1,
+      "seniority": "Junior",
+      "company": "SeaBank",
+      "description": "Membantu pengembangan backend perbankan digital menggunakan bahasa Go.",
+      "required_skills": "Go|PostgreSQL|Docker|REST API|Redis",
+      "normalized_role": "Golang Developer",
+      "salary_min": 8000000,
+      "source_url": "https://example.com/job/129"
+    },
+    {
+      "id": "JOB-125",
+      "document": "Golang Backend Engineer | Mengembangkan sistem pembayaran real-time dengan bahasa Go.",
+      "distance": 0.24637562036514282,
+      "published_at": "2026-06-19",
+      "collected_at": "2026-07-10",
+      "location": "Jakarta",
+      "title": "Golang Backend Engineer",
+      "required_skills": "Go|PostgreSQL|gRPC|Docker|Redis|Kafka|Microservices",
+      "salary_min": 17000000,
+      "normalized_role": "Golang Developer",
+      "preferred_skills": "Kubernetes|AWS|Protocol Buffers",
+      "seniority": "Mid",
+      "work_mode": "Hybrid",
+      "salary_max": 24000000,
+      "company": "Xendit",
+      "currency": "IDR",
+      "minimum_experience": 3,
+      "description": "Mengembangkan sistem pembayaran real-time dengan bahasa Go.",
+      "source_url": "https://example.com/job/125"
+    },
+    {
+      "id": "JOB-128",
+      "document": "Golang Engineer | Mengembangkan layanan payment processing dan dompet digital dengan Go.",
+      "distance": 0.24753761291503906,
+      "published_at": "2026-06-22",
+      "location": "Jakarta",
+      "salary_max": 22000000,
+      "salary_min": 15000000,
+      "preferred_skills": "Kubernetes|Microservices|AWS",
+      "title": "Golang Engineer",
+      "minimum_experience": 3,
+      "company": "OVO",
+      "currency": "IDR",
+      "description": "Mengembangkan layanan payment processing dan dompet digital dengan Go.",
+      "normalized_role": "Golang Developer",
+      "seniority": "Mid",
+      "source_url": "https://example.com/job/128",
+      "collected_at": "2026-07-10",
+      "work_mode": "Hybrid",
+      "required_skills": "Go|PostgreSQL|gRPC|Redis|Docker|Kafka"
+    },
+    {
+      "id": "JOB-124",
+      "document": "Junior Golang Developer | Membantu pengembangan layanan backend marketplace menggunakan Go.",
+      "distance": 0.2513144016265869,
+      "seniority": "Junior",
+      "salary_max": 13000000,
+      "normalized_role": "Golang Developer",
+      "title": "Junior Golang Developer",
+      "published_at": "2026-06-18",
+      "company": "Bukalapak",
+      "work_mode": "Onsite",
+      "preferred_skills": "gRPC|Redis|Kafka",
+      "salary_min": 9000000,
+      "minimum_experience": 1,
+      "description": "Membantu pengembangan layanan backend marketplace menggunakan Go.",
+      "location": "Jakarta",
+      "collected_at": "2026-07-10",
+      "source_url": "https://example.com/job/124",
+      "currency": "IDR",
+      "required_skills": "Go|PostgreSQL|Docker|REST API"
+    },
+    {
+      "id": "JOB-132",
+      "document": "Golang Backend Developer - Fintech | Mengembangkan layanan perbankan digital core system menggunakan Go.",
+      "distance": 0.2551417946815491,
+      "work_mode": "Hybrid",
+      "title": "Golang Backend Developer - Fintech",
+      "salary_min": 16000000,
+      "source_url": "https://example.com/job/132",
+      "company": "BCA Digital",
+      "minimum_experience": 3,
+      "salary_max": 23000000,
+      "published_at": "2026-06-26",
+      "normalized_role": "Golang Developer",
+      "description": "Mengembangkan layanan perbankan digital core system menggunakan Go.",
+      "seniority": "Mid",
+      "required_skills": "Go|PostgreSQL|gRPC|Docker|Redis|Kafka|Microservices",
+      "preferred_skills": "Kubernetes|AWS|Protocol Buffers",
+      "currency": "IDR",
+      "collected_at": "2026-07-10",
+      "location": "Jakarta"
+    },
+    {
+      "id": "JOB-126",
+      "document": "Senior Golang Backend | Memimpin pengembangan platform fintech berbasis Go dengan throughput tinggi.",
+      "distance": 0.2680124044418335,
+      "location": "Jakarta",
+      "salary_max": 36000000,
+      "seniority": "Senior",
+      "normalized_role": "Golang Developer",
+      "published_at": "2026-06-20",
+      "minimum_experience": 5,
+      "salary_min": 25000000,
+      "title": "Senior Golang Backend",
+      "preferred_skills": "AWS|Protocol Buffers|Distributed Systems",
+      "currency": "IDR",
+      "company": "GoTo Financial",
+      "work_mode": "Hybrid",
+      "required_skills": "Go|PostgreSQL|gRPC|Docker|Kubernetes|Redis|Kafka|Microservices",
+      "source_url": "https://example.com/job/126",
+      "description": "Memimpin pengembangan platform fintech berbasis Go dengan throughput tinggi.",
+      "collected_at": "2026-07-10"
+    },
+    {
+      "id": "JOB-141",
+      "document": "PHP Backend Developer | Mengembangkan sistem perbankan digital core menggunakan PHP.",
+      "distance": 0.27309852838516235,
+      "salary_max": 18000000,
+      "currency": "IDR",
+      "location": "Jakarta",
+      "seniority": "Mid",
+      "published_at": "2026-06-23",
+      "preferred_skills": "RabbitMQ|Microservices|Git",
+      "company": "Bank BCA",
+      "work_mode": "Onsite",
+      "title": "PHP Backend Developer",
+      "salary_min": 12000000,
+      "minimum_experience": 3,
+      "description": "Mengembangkan sistem perbankan digital core menggunakan PHP.",
+      "normalized_role": "PHP Developer",
+      "source_url": "https://example.com/job/141",
+      "required_skills": "PHP|Laravel|MySQL|Redis|Docker|REST API|PostgreSQL",
+      "collected_at": "2026-07-10"
+    },
+    {
+      "id": "JOB-135",
+      "document": "PHP Developer | Mengembangkan fitur-fitur marketplace menggunakan framework Laravel.",
+      "distance": 0.27935707569122314,
+      "currency": "IDR",
+      "source_url": "https://example.com/job/135",
+      "seniority": "Mid",
+      "published_at": "2026-06-17",
+      "minimum_experience": 3,
+      "work_mode": "Onsite",
+      "location": "Jakarta",
+      "preferred_skills": "PostgreSQL|RabbitMQ|Microservices",
+      "description": "Mengembangkan fitur-fitur marketplace menggunakan framework Laravel.",
+      "company": "Bukalapak",
+      "salary_min": 11000000,
+      "required_skills": "PHP|Laravel|MySQL|Redis|Docker|REST API",
+      "collected_at": "2026-07-10",
+      "title": "PHP Developer",
+      "normalized_role": "PHP Developer",
+      "salary_max": 17000000
+    },
+    {
+      "id": "JOB-142",
+      "document": "PHP Developer - Payment | Mengembangkan payment gateway dan integrasi merchant menggunakan PHP.",
+      "distance": 0.28130120038986206,
+      "currency": "IDR",
+      "seniority": "Mid",
+      "source_url": "https://example.com/job/142",
+      "title": "PHP Developer - Payment",
+      "work_mode": "Hybrid",
+      "minimum_experience": 3,
+      "salary_max": 19000000,
+      "required_skills": "PHP|Laravel|MySQL|Redis|Docker|REST API|RabbitMQ",
+      "location": "Jakarta",
+      "description": "Mengembangkan payment gateway dan integrasi merchant menggunakan PHP.",
+      "salary_min": 13000000,
+      "preferred_skills": "PostgreSQL|Microservices|Kubernetes",
+      "company": "Xendit",
+      "normalized_role": "PHP Developer",
+      "collected_at": "2026-07-10",
+      "published_at": "2026-06-24"
+    },
+    {
+      "id": "JOB-140",
+      "document": "PHP Developer | Mengembangkan platform SaaS akuntansi dan HR menggunakan PHP Laravel.",
+      "distance": 0.287441611289978,
+      "company": "Mekari",
+      "collected_at": "2026-07-10",
+      "description": "Mengembangkan platform SaaS akuntansi dan HR menggunakan PHP Laravel.",
+      "source_url": "https://example.com/job/140",
+      "salary_min": 11000000,
+      "seniority": "Mid",
+      "published_at": "2026-06-22",
+      "location": "Jakarta",
+      "minimum_experience": 3,
+      "required_skills": "PHP|Laravel|MySQL|Redis|Docker|REST API",
+      "preferred_skills": "PostgreSQL|RabbitMQ|Microservices|Git",
+      "normalized_role": "PHP Developer",
+      "title": "PHP Developer",
+      "currency": "IDR",
+      "salary_max": 16000000,
+      "work_mode": "Remote"
+    },
+    {
+      "id": "JOB-138",
+      "document": "PHP Developer - Platform | Mengembangkan platform backend dompet digital dan loyalty program.",
+      "distance": 0.29120850563049316,
+      "collected_at": "2026-07-10",
+      "salary_min": 12000000,
+      "description": "Mengembangkan platform backend dompet digital dan loyalty program.",
+      "work_mode": "Hybrid",
+      "currency": "IDR",
+      "source_url": "https://example.com/job/138",
+      "preferred_skills": "PostgreSQL|RabbitMQ|Microservices",
+      "published_at": "2026-06-20",
+      "minimum_experience": 3,
+      "location": "Jakarta",
+      "salary_max": 17000000,
+      "normalized_role": "PHP Developer",
+      "required_skills": "PHP|Laravel|MySQL|Redis|Docker|REST API",
+      "title": "PHP Developer - Platform",
+      "company": "OVO",
+      "seniority": "Mid"
+    },
+    {
+      "id": "JOB-136",
+      "document": "Junior PHP Developer | Membantu pengembangan fitur backend e-commerce menggunakan PHP dan Laravel.",
+      "distance": 0.30234843492507935,
+      "required_skills": "PHP|Laravel|MySQL|REST API|Git",
+      "title": "Junior PHP Developer",
+      "salary_min": 7000000,
+      "location": "Bandung",
+      "work_mode": "Hybrid",
+      "preferred_skills": "Redis|Docker|PostgreSQL",
+      "description": "Membantu pengembangan fitur backend e-commerce menggunakan PHP dan Laravel.",
+      "normalized_role": "PHP Developer",
+      "salary_max": 10000000,
+      "currency": "IDR",
+      "minimum_experience": 1,
+      "published_at": "2026-06-18",
+      "seniority": "Junior",
+      "company": "Blibli",
+      "collected_at": "2026-07-10",
+      "source_url": "https://example.com/job/136"
+    },
+    {
+      "id": "JOB-134",
+      "document": "Senior PHP Developer | Memimpin tim backend PHP untuk platform tiket dan events.",
+      "distance": 0.3072885274887085,
+      "title": "Senior PHP Developer",
+      "preferred_skills": "RabbitMQ|Microservices|Kubernetes",
+      "source_url": "https://example.com/job/134",
+      "published_at": "2026-06-16",
+      "required_skills": "PHP|Laravel|MySQL|Redis|Docker|REST API|PostgreSQL",
+      "currency": "IDR",
+      "minimum_experience": 5,
+      "work_mode": "Hybrid",
+      "location": "Jakarta",
+      "collected_at": "2026-07-10",
+      "seniority": "Senior",
+      "company": "Tiket.com",
+      "normalized_role": "PHP Developer",
+      "description": "Memimpin tim backend PHP untuk platform tiket dan events.",
+      "salary_max": 28000000,
+      "salary_min": 20000000
+    },
+    {
+      "id": "JOB-137",
+      "document": "PHP Backend Engineer | Mengembangkan sistem backend marketplace dengan performa tinggi menggunakan PHP.",
+      "distance": 0.3079192042350769,
+      "seniority": "Mid",
+      "normalized_role": "PHP Developer",
+      "description": "Mengembangkan sistem backend marketplace dengan performa tinggi menggunakan PHP.",
+      "required_skills": "PHP|Laravel|MySQL|Redis|Docker|REST API|PostgreSQL",
+      "collected_at": "2026-07-10",
+      "currency": "IDR",
+      "preferred_skills": "RabbitMQ|Microservices|Kubernetes",
+      "salary_max": 19000000,
+      "location": "Jakarta",
+      "source_url": "https://example.com/job/137",
+      "published_at": "2026-06-19",
+      "minimum_experience": 3,
+      "salary_min": 13000000,
+      "work_mode": "Onsite",
+      "title": "PHP Backend Engineer",
+      "company": "Shopee Indonesia"
+    },
+    {
+      "id": "JOB-133",
+      "document": "PHP Backend Developer | Mengembangkan layanan backend untuk platform merchant Gojek menggunakan PHP.",
+      "distance": 0.30869948863983154,
+      "salary_min": 12000000,
+      "work_mode": "Hybrid",
+      "published_at": "2026-06-15",
+      "required_skills": "PHP|Laravel|MySQL|Redis|Docker|REST API",
+      "collected_at": "2026-07-10",
+      "salary_max": 18000000,
+      "title": "PHP Backend Developer",
+      "normalized_role": "PHP Developer",
+      "preferred_skills": "PostgreSQL|RabbitMQ|Microservices",
+      "source_url": "https://example.com/job/133",
+      "minimum_experience": 3,
+      "seniority": "Mid",
+      "company": "Gojek",
+      "description": "Mengembangkan layanan backend untuk platform merchant Gojek menggunakan PHP.",
+      "location": "Jakarta",
+      "currency": "IDR"
+    },
+    {
+      "id": "JOB-139",
+      "document": "Senior PHP Backend | Memimpin arsitektur backend PHP untuk platform fintech.",
+      "distance": 0.3381274342536926,
+      "location": "Jakarta",
+      "title": "Senior PHP Backend",
+      "salary_max": 30000000,
+      "salary_min": 20000000,
+      "seniority": "Senior",
+      "minimum_experience": 5,
+      "published_at": "2026-06-21",
+      "normalized_role": "PHP Developer",
+      "work_mode": "Hybrid",
+      "currency": "IDR",
+      "preferred_skills": "Microservices|Kubernetes|AWS",
+      "required_skills": "PHP|Laravel|MySQL|Redis|Docker|REST API|PostgreSQL|RabbitMQ",
+      "description": "Memimpin arsitektur backend PHP untuk platform fintech.",
+      "source_url": "https://example.com/job/139",
+      "company": "GoTo Financial",
+      "collected_at": "2026-07-10"
+    },
+    {
+      "id": "JOB-039",
+      "document": "Senior Python Backend Developer | Memimpin tim backend untuk fitur-fitur core e-commerce dengan skala tinggi.",
+      "distance": 0.24714207649230957,
+      "work_mode": "Remote",
+      "published_at": "2026-06-21",
+      "required_skills": "Python|FastAPI|Django|PostgreSQL|Docker|Redis|Kubernetes",
+      "normalized_role": "Python Backend Developer",
+      "salary_max": 32000000,
+      "title": "Senior Python Backend Developer",
+      "preferred_skills": "gRPC|Kafka|AWS",
+      "location": "Bandung",
+      "company": "Blibli",
+      "salary_min": 22000000,
+      "currency": "IDR",
+      "minimum_experience": 5,
+      "seniority": "Senior",
+      "collected_at": "2026-07-10",
+      "description": "Memimpin tim backend untuk fitur-fitur core e-commerce dengan skala tinggi.",
+      "source_url": "https://example.com/job/039"
+    },
+    {
+      "id": "JOB-139",
+      "document": "Senior PHP Backend | Memimpin arsitektur backend PHP untuk platform fintech.",
+      "distance": 0.25102537870407104,
+      "required_skills": "PHP|Laravel|MySQL|Redis|Docker|REST API|PostgreSQL|RabbitMQ",
+      "seniority": "Senior",
+      "collected_at": "2026-07-10",
+      "location": "Jakarta",
+      "minimum_experience": 5,
+      "company": "GoTo Financial",
+      "salary_max": 30000000,
+      "description": "Memimpin arsitektur backend PHP untuk platform fintech.",
+      "source_url": "https://example.com/job/139",
+      "preferred_skills": "Microservices|Kubernetes|AWS",
+      "currency": "IDR",
+      "title": "Senior PHP Backend",
+      "work_mode": "Hybrid",
+      "normalized_role": "PHP Developer",
+      "published_at": "2026-06-21",
+      "salary_min": 20000000
+    },
+    {
+      "id": "JOB-044",
+      "document": "Senior Python Backend | Memimpin pengembangan backend untuk platform marketplace skala besar.",
+      "distance": 0.25119417905807495,
+      "work_mode": "Onsite",
+      "company": "Shopee Indonesia",
+      "currency": "IDR",
+      "source_url": "https://example.com/job/044",
+      "seniority": "Senior",
+      "minimum_experience": 5,
+      "normalized_role": "Python Backend Developer",
+      "salary_min": 25000000,
+      "collected_at": "2026-07-10",
+      "published_at": "2026-06-26",
+      "description": "Memimpin pengembangan backend untuk platform marketplace skala besar.",
+      "required_skills": "Python|FastAPI|Django|PostgreSQL|Docker|Kubernetes|Redis|Kafka",
+      "title": "Senior Python Backend",
+      "preferred_skills": "gRPC|Elasticsearch|AWS",
+      "location": "Jakarta",
+      "salary_max": 35000000
+    },
+    {
+      "id": "JOB-141",
+      "document": "PHP Backend Developer | Mengembangkan sistem perbankan digital core menggunakan PHP.",
+      "distance": 0.258495569229126,
+      "source_url": "https://example.com/job/141",
+      "salary_max": 18000000,
+      "preferred_skills": "RabbitMQ|Microservices|Git",
+      "location": "Jakarta",
+      "currency": "IDR",
+      "company": "Bank BCA",
+      "salary_min": 12000000,
+      "published_at": "2026-06-23",
+      "minimum_experience": 3,
+      "seniority": "Mid",
+      "normalized_role": "PHP Developer",
+      "work_mode": "Onsite",
+      "description": "Mengembangkan sistem perbankan digital core menggunakan PHP.",
+      "collected_at": "2026-07-10",
+      "required_skills": "PHP|Laravel|MySQL|Redis|Docker|REST API|PostgreSQL",
+      "title": "PHP Backend Developer"
+    },
+    {
+      "id": "JOB-131",
+      "document": "Senior Golang Developer | Memimpin pengembangan sistem backend e-commerce berskala besar dengan Go.",
+      "distance": 0.2592596411705017,
+      "company": "Blibli",
+      "normalized_role": "Golang Developer",
+      "salary_min": 24000000,
+      "currency": "IDR",
+      "title": "Senior Golang Developer",
+      "published_at": "2026-06-25",
+      "seniority": "Senior",
+      "description": "Memimpin pengembangan sistem backend e-commerce berskala besar dengan Go.",
+      "salary_max": 34000000,
+      "collected_at": "2026-07-10",
+      "preferred_skills": "AWS|Protocol Buffers|Distributed Systems",
+      "work_mode": "Remote",
+      "required_skills": "Go|PostgreSQL|gRPC|Docker|Kubernetes|Redis|Kafka|Microservices",
+      "source_url": "https://example.com/job/131",
+      "minimum_experience": 5,
+      "location": "Bandung"
+    },
+    {
+      "id": "JOB-045",
+      "document": "Python Backend Developer | Mengembangkan layanan backend perbankan digital dengan standar keamanan tinggi.",
+      "distance": 0.26669496297836304,
+      "title": "Python Backend Developer",
+      "minimum_experience": 3,
+      "location": "Jakarta",
+      "description": "Mengembangkan layanan backend perbankan digital dengan standar keamanan tinggi.",
+      "published_at": "2026-06-27",
+      "currency": "IDR",
+      "collected_at": "2026-07-10",
+      "salary_min": 15000000,
+      "salary_max": 22000000,
+      "source_url": "https://example.com/job/045",
+      "company": "BCA Digital",
+      "required_skills": "Python|FastAPI|PostgreSQL|Docker|Redis|Kafka",
+      "preferred_skills": "Kubernetes|gRPC|AWS",
+      "seniority": "Mid",
+      "work_mode": "Hybrid",
+      "normalized_role": "Python Backend Developer"
+    },
+    {
+      "id": "JOB-126",
+      "document": "Senior Golang Backend | Memimpin pengembangan platform fintech berbasis Go dengan throughput tinggi.",
+      "distance": 0.2735973000526428,
+      "minimum_experience": 5,
+      "published_at": "2026-06-20",
+      "required_skills": "Go|PostgreSQL|gRPC|Docker|Kubernetes|Redis|Kafka|Microservices",
+      "preferred_skills": "AWS|Protocol Buffers|Distributed Systems",
+      "title": "Senior Golang Backend",
+      "normalized_role": "Golang Developer",
+      "salary_min": 25000000,
+      "currency": "IDR",
+      "source_url": "https://example.com/job/126",
+      "location": "Jakarta",
+      "collected_at": "2026-07-10",
+      "salary_max": 36000000,
+      "description": "Memimpin pengembangan platform fintech berbasis Go dengan throughput tinggi.",
+      "seniority": "Senior",
+      "company": "GoTo Financial",
+      "work_mode": "Hybrid"
+    },
+    {
+      "id": "JOB-134",
+      "document": "Senior PHP Developer | Memimpin tim backend PHP untuk platform tiket dan events.",
+      "distance": 0.27550220489501953,
+      "location": "Jakarta",
+      "currency": "IDR",
+      "company": "Tiket.com",
+      "preferred_skills": "RabbitMQ|Microservices|Kubernetes",
+      "normalized_role": "PHP Developer",
+      "salary_max": 28000000,
+      "source_url": "https://example.com/job/134",
+      "minimum_experience": 5,
+      "required_skills": "PHP|Laravel|MySQL|Redis|Docker|REST API|PostgreSQL",
+      "published_at": "2026-06-16",
+      "description": "Memimpin tim backend PHP untuk platform tiket dan events.",
+      "title": "Senior PHP Developer",
+      "collected_at": "2026-07-10",
+      "work_mode": "Hybrid",
+      "salary_min": 20000000,
+      "seniority": "Senior"
+    },
+    {
+      "id": "JOB-176",
+      "document": "Senior Java Developer | Memimpin arsitektur backend Java untuk platform travel berskala global.",
+      "distance": 0.276868999004364,
+      "work_mode": "Remote",
+      "preferred_skills": "AWS|gRPC|Elasticsearch|Distributed Systems",
+      "published_at": "2026-06-16",
+      "salary_min": 25000000,
+      "description": "Memimpin arsitektur backend Java untuk platform travel berskala global.",
+      "salary_max": 35000000,
+      "seniority": "Senior",
+      "location": "Bandung",
+      "minimum_experience": 5,
+      "required_skills": "Java|Spring Boot|PostgreSQL|Docker|Kubernetes|Redis|Kafka|Microservices",
+      "company": "Traveloka",
+      "currency": "IDR",
+      "normalized_role": "Java Developer",
+      "source_url": "https://example.com/job/176",
+      "collected_at": "2026-07-10",
+      "title": "Senior Java Developer"
+    },
+    {
+      "id": "JOB-040",
+      "document": "Python Backend Developer | Mengembangkan dan memelihara layanan backend dompet digital.",
+      "distance": 0.2891584634780884,
+      "preferred_skills": "Kubernetes|gRPC|Microservices",
+      "salary_max": 22000000,
+      "description": "Mengembangkan dan memelihara layanan backend dompet digital.",
+      "location": "Jakarta",
+      "minimum_experience": 3,
+      "company": "OVO",
+      "salary_min": 15000000,
+      "title": "Python Backend Developer",
+      "collected_at": "2026-07-10",
+      "source_url": "https://example.com/job/040",
+      "published_at": "2026-06-22",
+      "work_mode": "Hybrid",
+      "seniority": "Mid",
+      "normalized_role": "Python Backend Developer",
+      "currency": "IDR",
+      "required_skills": "Python|FastAPI|PostgreSQL|Redis|Docker"
+    }
+  ],
+  "market_stats": {
+    "Golang Developer": {
+      "role": "Golang Developer",
+      "total_jobs": 12,
+      "skill_frequency": {
+        "Go": 12,
+        "PostgreSQL": 12,
+        "Docker": 12,
+        "Redis": 11,
+        "gRPC": 10,
+        "Kafka": 9,
+        "Microservices": 4,
+        "Kubernetes": 3,
+        "REST API": 2
+      }
+    },
+    "PHP Developer": {
+      "role": "PHP Developer",
+      "total_jobs": 10,
+      "skill_frequency": {
+        "PHP": 10,
+        "Laravel": 10,
+        "MySQL": 10,
+        "REST API": 10,
+        "Redis": 9,
+        "Docker": 9,
+        "PostgreSQL": 4,
+        "RabbitMQ": 2,
+        "Git": 1
+      }
+    },
+    "Senior Backend Developer": {
+      "role": "Senior Backend Developer",
+      "total_jobs": 0,
+      "skill_frequency": {}
+    }
+  },
+  "evaluated_roles": [
+    {
+      "role_name": "Golang Developer",
+      "total_score": 91.11,
+      "confidence_level": "HIGH",
+      "score_breakdown": {
+        "skill_match": 31.11,
+        "experience": 20.0,
+        "interest": 15.0,
+        "constraints": 10.0,
+        "market_evidence": 15.0
+      },
+      "matching_skills": [
+        "docker",
+        "go",
+        "postgresql",
+        "redis",
+        "apache kafka",
+        "rest api",
+        "microservices"
+      ],
+      "missing_critical_skills": [
+        "kubernetes",
+        "grpc"
+      ],
+      "evidence_job_ids": [
+        "JOB-127",
+        "JOB-123",
+        "JOB-121"
+      ],
+      "reasoning_summary": "Skor 91.11 - HIGH"
+    },
+    {
+      "role_name": "PHP Developer",
+      "total_score": 81.11,
+      "confidence_level": "HIGH",
+      "score_breakdown": {
+        "skill_match": 31.11,
+        "experience": 20.0,
+        "interest": 5.0,
+        "constraints": 10.0,
+        "market_evidence": 15.0
+      },
+      "matching_skills": [
+        "docker",
+        "mysql",
+        "php",
+        "postgresql",
+        "redis",
+        "rest api",
+        "git"
+      ],
+      "missing_critical_skills": [
+        "rabbitmq",
+        "laravel"
+      ],
+      "evidence_job_ids": [
+        "JOB-141",
+        "JOB-135",
+        "JOB-142"
+      ],
+      "reasoning_summary": "Skor 81.11 - HIGH"
+    },
+    {
+      "role_name": "Senior Backend Developer",
+      "total_score": 35.0,
+      "confidence_level": "LOW",
+      "score_breakdown": {
+        "skill_match": 0.0,
+        "experience": 20.0,
+        "interest": 5.0,
+        "constraints": 10.0,
+        "market_evidence": 0.0
+      },
+      "matching_skills": [],
+      "missing_critical_skills": [],
+      "evidence_job_ids": [],
+      "reasoning_summary": "Skor 35.0 - LOW"
+    }
+  ],
+  "skill_gaps": {},
+  "roadmap_plan": {
+    "target_role": "Golang Developer",
+    "phase_30_days": [
+      {
+        "skill": "kubernetes",
+        "action": "Pelajari dasar-dasar kubernetes",
+        "resources": []
+      }
+    ],
+    "phase_60_days": [
+      {
+        "skill": "grpc",
+        "action": "Pelajari dasar-dasar grpc",
+        "resources": []
+      }
+    ],
+    "phase_90_days": [],
+    "priority_skills": [
+      "kubernetes",
+      "grpc"
+    ],
+    "resources": []
+  },
+  "career_blueprint": {
+    "profile_summary": {
+      "full_name": "Ahmad Haris Fahmi",
+      "current_role": "Backend Developer",
+      "years_of_experience": 6.0,
+      "hard_skills": [
+        "Golang",
+        "PHP",
+        "PostgreSQL",
+        "MySQL",
+        "Redis",
+        "Docker",
+        "REST APIs",
+        "Microservices",
+        "Kafka Connect",
+        "Git"
+      ],
+      "soft_skills": [
+        "Cross-functional Collaboration",
+        "Technical Mentoring & Knowledge Transfer",
+        "Technical Documentation",
+        "Problem Solving & Analytical Thinking"
+      ],
+      "education": "S1 Informatika",
+      "target_roles": [
+        "Golang Developer",
+        "PHP Developer",
+        "Senior Backend Developer"
+      ],
+      "learning_hours_per_week": 10,
+      "budget_idr": 0.0
+    },
+    "top_paths": [
+      {
+        "role_name": "Golang Developer",
+        "total_score": 91.11,
+        "confidence_level": "HIGH",
+        "score_breakdown": {
+          "skill_match": 31.11,
+          "experience": 20.0,
+          "interest": 15.0,
+          "constraints": 10.0,
+          "market_evidence": 15.0
+        },
+        "matching_skills": [
+          "docker",
+          "go",
+          "postgresql",
+          "redis",
+          "apache kafka",
+          "rest api",
+          "microservices"
+        ],
+        "missing_critical_skills": [
+          "kubernetes",
+          "grpc"
+        ],
+        "evidence_job_ids": [
+          "JOB-127",
+          "JOB-123",
+          "JOB-121"
+        ],
+        "reasoning_summary": "Skor 91.11 - HIGH"
+      },
+      {
+        "role_name": "PHP Developer",
+        "total_score": 81.11,
+        "confidence_level": "HIGH",
+        "score_breakdown": {
+          "skill_match": 31.11,
+          "experience": 20.0,
+          "interest": 5.0,
+          "constraints": 10.0,
+          "market_evidence": 15.0
+        },
+        "matching_skills": [
+          "docker",
+          "mysql",
+          "php",
+          "postgresql",
+          "redis",
+          "rest api",
+          "git"
+        ],
+        "missing_critical_skills": [
+          "rabbitmq",
+          "laravel"
+        ],
+        "evidence_job_ids": [
+          "JOB-141",
+          "JOB-135",
+          "JOB-142"
+        ],
+        "reasoning_summary": "Skor 81.11 - HIGH"
+      },
+      {
+        "role_name": "Senior Backend Developer",
+        "total_score": 35.0,
+        "confidence_level": "LOW",
+        "score_breakdown": {
+          "skill_match": 0.0,
+          "experience": 20.0,
+          "interest": 5.0,
+          "constraints": 10.0,
+          "market_evidence": 0.0
+        },
+        "matching_skills": [],
+        "missing_critical_skills": [],
+        "evidence_job_ids": [],
+        "reasoning_summary": "Skor 35.0 - LOW"
+      }
+    ],
+    "skill_gap_matrix": [
+      {
+        "role": "Golang Developer",
+        "score": 91.11,
+        "missing": [
+          "kubernetes",
+          "grpc"
+        ]
+      },
+      {
+        "role": "PHP Developer",
+        "score": 81.11,
+        "missing": [
+          "rabbitmq",
+          "laravel"
+        ]
+      },
+      {
+        "role": "Senior Backend Developer",
+        "score": 35.0,
+        "missing": []
+      }
+    ],
+    "roadmap_30_60_90": {
+      "target_role": "Golang Developer",
+      "phase_30_days": [
+        {
+          "skill": "kubernetes",
+          "action": "Pelajari dasar-dasar kubernetes",
+          "resources": []
+        }
+      ],
+      "phase_60_days": [
+        {
+          "skill": "grpc",
+          "action": "Pelajari dasar-dasar grpc",
+          "resources": []
+        }
+      ],
+      "phase_90_days": [],
+      "priority_skills": [
+        "kubernetes",
+        "grpc"
+      ],
+      "resources": []
+    },
+    "market_evidence": {
+      "retrieved_jobs": 30,
+      "stats": {
+        "Golang Developer": {
+          "role": "Golang Developer",
+          "total_jobs": 12,
+          "skill_frequency": {
+            "Go": 12,
+            "PostgreSQL": 12,
+            "Docker": 12,
+            "Redis": 11,
+            "gRPC": 10,
+            "Kafka": 9,
+            "Microservices": 4,
+            "Kubernetes": 3,
+            "REST API": 2
+          }
+        },
+        "PHP Developer": {
+          "role": "PHP Developer",
+          "total_jobs": 10,
+          "skill_frequency": {
+            "PHP": 10,
+            "Laravel": 10,
+            "MySQL": 10,
+            "REST API": 10,
+            "Redis": 9,
+            "Docker": 9,
+            "PostgreSQL": 4,
+            "RabbitMQ": 2,
+            "Git": 1
+          }
+        },
+        "Senior Backend Developer": {
+          "role": "Senior Backend Developer",
+          "total_jobs": 0,
+          "skill_frequency": {}
+        }
+      }
+    },
+    "limitations": [],
+    "confidence_level": "HIGH",
+    "sources": [
+      {
+        "id": "JOB-127",
+        "title": "Golang Developer - Platform",
+        "url": "https://example.com/job/127"
+      },
+      {
+        "id": "JOB-123",
+        "title": "Golang Developer",
+        "url": "https://example.com/job/123"
+      },
+      {
+        "id": "JOB-121",
+        "title": "Golang Backend Developer",
+        "url": "https://example.com/job/121"
+      },
+      {
+        "id": "JOB-131",
+        "title": "Senior Golang Developer",
+        "url": "https://example.com/job/131"
+      },
+      {
+        "id": "JOB-129",
+        "title": "Junior Go Developer",
+        "url": "https://example.com/job/129"
+      },
+      {
+        "id": "JOB-125",
+        "title": "Golang Backend Engineer",
+        "url": "https://example.com/job/125"
+      },
+      {
+        "id": "JOB-128",
+        "title": "Golang Engineer",
+        "url": "https://example.com/job/128"
+      },
+      {
+        "id": "JOB-124",
+        "title": "Junior Golang Developer",
+        "url": "https://example.com/job/124"
+      },
+      {
+        "id": "JOB-132",
+        "title": "Golang Backend Developer - Fintech",
+        "url": "https://example.com/job/132"
+      },
+      {
+        "id": "JOB-126",
+        "title": "Senior Golang Backend",
+        "url": "https://example.com/job/126"
+      }
+    ]
+  },
+  "quality_approved": true,
+  "revision_count": 0,
+  "error_messages": [],
+  "execution_logs": [
+    {
+      "step": "profile",
+      "status": "ok"
+    },
+    {
+      "step": "market",
+      "status": "ok"
+    },
+    {
+      "step": "match",
+      "status": "ok"
+    },
+    {
+      "step": "roadmap",
+      "status": "ok"
+    },
+    {
+      "step": "quality",
+      "status": "ok",
+      "approved": true
+    }
+  ]
+}

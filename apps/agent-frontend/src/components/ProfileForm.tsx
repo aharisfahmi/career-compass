@@ -3,6 +3,7 @@ import { useState } from "react";
 interface Props {
   onSubmit: (data: any) => void;
   cvText?: string;
+  initialData?: any;
 }
 
 interface FieldDef {
@@ -22,10 +23,17 @@ const FIELDS: FieldDef[] = [
   { name: "budget_idr", label: "Budget (IDR)", type: "number", min: 0, placeholder: "5000000" },
 ];
 
-export function ProfileForm({ onSubmit }: Props) {
+export function ProfileForm({ onSubmit, initialData }: Props) {
   const [form, setForm] = useState<Record<string, string | number>>({
-    full_name: "", current_role: "", years_of_experience: 0, hard_skills: "", soft_skills: "",
-    education: "", target_roles: "", learning_hours_per_week: 10, budget_idr: 0,
+    full_name: initialData?.full_name || "",
+    current_role: initialData?.current_role || "",
+    years_of_experience: Number(initialData?.years_of_experience) || 0,
+    hard_skills: Array.isArray(initialData?.hard_skills) ? initialData.hard_skills.join(", ") : "",
+    soft_skills: Array.isArray(initialData?.soft_skills) ? initialData.soft_skills.join(", ") : "",
+    education: initialData?.education || "",
+    target_roles: Array.isArray(initialData?.target_roles) ? initialData.target_roles.join(", ") : "",
+    learning_hours_per_week: Number(initialData?.learning_hours_per_week) || 10,
+    budget_idr: Number(initialData?.budget_idr) || 0,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

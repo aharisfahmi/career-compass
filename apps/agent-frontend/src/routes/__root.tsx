@@ -26,6 +26,7 @@ function HomePage() {
   const [step, setStep] = useState<"input" | "confirm" | "processing" | "result">("input");
   const [formData, setFormData] = useState<any>(null);
   const [cvText, setCvText] = useState<string>("");
+  const [extracting, setExtracting] = useState(false);
   const { events, isStreaming, error, startStream, stopStream } = useWorkflowStream();
 
   const handleSubmit = (data: any) => {
@@ -33,8 +34,33 @@ function HomePage() {
     setStep("confirm");
   };
 
-  const handleCvExtracted = (text: string) => {
+  const handleCvExtracted = async (text: string) => {
     setCvText(text);
+    setExtracting(true);
+    try {
+      const { extractProfile } = await import("../lib/api");
+      const res = await extractProfile({}, text);
+      const profile = res.profile;
+      const parsed = typeof profile === "string" ? JSON.parse(profile) : profile;
+      const fd = {
+        full_name: parsed.full_name || "",
+        current_role: parsed.current_role || "",
+        years_of_experience: Number(parsed.years_of_experience) || 0,
+        hard_skills: Array.isArray(parsed.hard_skills) ? parsed.hard_skills : [],
+        soft_skills: Array.isArray(parsed.soft_skills) ? parsed.soft_skills : [],
+        education: parsed.education || "",
+        target_roles: Array.isArray(parsed.target_roles) ? parsed.target_roles : [],
+        learning_hours_per_week: Number(parsed.learning_hours_per_week) || 10,
+        budget_idr: Number(parsed.budget_idr) || 0,
+      };
+      setFormData(fd);
+      const hasRoles = Array.isArray(fd.target_roles) && fd.target_roles.length > 0;
+      setStep(hasRoles ? "confirm" : "input");
+    } catch {
+      setStep("input");
+    } finally {
+      setExtracting(false);
+    }
   };
 
   const handleConfirm = () => {
@@ -69,27 +95,35 @@ function HomePage() {
               Temukan jalur karier terbaikmu. Analisis berbasis AI dan data pasar kerja nyata.
             </p>
           </div>
-          <div className="grid lg:grid-cols-5 gap-6 items-start">
-            <div className="lg:col-span-2">
-              <div className="sticky top-24">
-                <h2 className="text-sm font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider mb-4">Upload CV</h2>
-                <CvUpload onExtracted={handleCvExtracted} />
-                <div className="mt-6 text-center">
-                  <div className="relative">
-                    <div className="absolute inset-0 flex items-center">
-                      <div className="w-full border-t border-[var(--color-border)]" />
-                    </div>
-                    <div className="relative flex justify-center">
-                      <span className="bg-[var(--color-surface-secondary)] px-3 text-xs text-[var(--color-text-secondary)]">atau isi manual</span>
+
+          {extracting ? (
+            <div className="flex flex-col items-center gap-4 py-20 text-[var(--color-text-secondary)]">
+              <div className="animate-spin w-8 h-8 border-2 border-[var(--color-brand-300)] border-t-[var(--color-brand-600)] rounded-full" />
+              <p className="text-sm">Mengekstrak profil dari file...</p>
+            </div>
+          ) : (
+            <div className="grid lg:grid-cols-5 gap-6 items-start">
+              <div className="lg:col-span-2">
+                <div className="sticky top-24">
+                  <h2 className="text-sm font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider mb-4">Upload CV</h2>
+                  <CvUpload onExtracted={handleCvExtracted} />
+                  <div className="mt-6 text-center">
+                    <div className="relative">
+                      <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-[var(--color-border)]" />
+                      </div>
+                      <div className="relative flex justify-center">
+                        <span className="bg-[var(--color-surface-secondary)] px-3 text-xs text-[var(--color-text-secondary)]">atau isi manual</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <div className="lg:col-span-3">
+                <ProfileForm onSubmit={handleSubmit} cvText={cvText} initialData={formData} />
+              </div>
             </div>
-            <div className="lg:col-span-3">
-              <ProfileForm onSubmit={handleSubmit} cvText={cvText} />
-            </div>
-          </div>
+          )}
         </div>
       )}
 
