@@ -91,7 +91,7 @@ LLM_MODEL=gpt-4o-mini
 # Bila dikosongkan → otomatis pakai OPENAI_API_KEY + OPENAI_BASE_URL.
 EMBEDDING_API_KEY=                        # kosong = pakai OPENAI_API_KEY
 EMBEDDING_BASE_URL=                       # kosong = pakai OPENAI_BASE_URL
-EMBEDDING_MODEL=text-embedding-3-small
+EMBEDDING_MODEL=mistral-embed
 
 # ─── Provider Khusus ───────────────────────────────────────────────
 MISTRAL_API_KEY=your-mistral-key-here     # wajib: CV parsing OCR

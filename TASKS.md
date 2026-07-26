@@ -10,7 +10,7 @@
 - [x] **Task 1.4**: Konfigurasi `.moon/workspace.yml` projects: `apps/*`. `.env` terisi dari env var sistem.
 - [x] **Task 1.5**: `data/raw_jobs.csv` — 120 baris, 6 supported roles, 15+ lowongan per role.
 - [x] **Task 1.6**: `data/learning_resources.json` — 40 item dengan skills, language, cost, duration.
-- [x] **Task 1.7**: `app/services/ingest.py` — Pandas → embed (gemini-embedding-001) → ChromaDB.
+- [x] **Task 1.7**: `app/services/ingest.py` — Pandas → embed (Mistral) → ChromaDB.
 - [x] **Task 1.8**: `tests/test_ingest.py` — verifikasi `collection.count() >= 120` dan `>= 30`.
 
 ## Phase 2: Database, MCP Server & Deterministic Scoring (Hari 4–5)
@@ -18,7 +18,7 @@
 - [x] **Task 2.1**: Alembic setup dengan `target_metadata = SQLModel.metadata`, migration `session` table.
 - [x] **Task 2.2**: `app/core/session_db.py` — async engine + sessionmaker.
 - [x] **Task 2.3**: `app/utils/scoring.py` — `calculate_role_fit_score` deterministik. Unit test boundary case.
-- [x] **Task 2.4**: `app/utils/cv_parser.py` — wrapper async Mistral OCR untuk PDF base64.
+- [x] **Task 2.4**: `app/utils/cv_parser.py` — wrapper async Mistral OCR (upload → signed URL → OCR).
 - [x] **Task 2.5**: FastMCP Server di `app/mcp/server.py` (transport STDIO).
 - [x] **Task 2.6**: 6 FastMCP Tools di `app/mcp/tools.py` dengan docstring "When to use" + structured JSON.
 - [x] **Task 2.7**: `app/services/web_search.py` — `tavily_search()` + `duckduckgo_fallback()`.

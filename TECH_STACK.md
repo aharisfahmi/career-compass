@@ -73,8 +73,8 @@ Setelah sebuah library/framework dipilih sebagai **base**, **fitur tambahan** da
 
 | Teknologi | Status | Alasan |
 |---|---|---|
-| **OpenAI SDK** (`openai`) | ✅ | Untuk embedding & LLM OpenAI |
-| **`text-embedding-3-small`** | ✅ | Embedding default (1536 dimensi, cost-effective) |
+| **OpenAI SDK** (`openai`) | ✅ | Untuk LLM & embedding (provider apa pun yg OpenAI-compatible) |
+| **`mistral-embed`** | ✅ | Embedding default via Mistral (1024 dimensi, gratis) |
 | **OpenRouter** | ✅ | Akses model non-OpenAI (Mistral, Claude, Gemini) via satu API |
 | **Mistral API** | ✅ | LLM + OCR dari Mistral |
 | **Any LLM Provider** | ✅ | Model LLM bebas dipilih sesuai kebutuhan |

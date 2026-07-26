@@ -56,8 +56,8 @@ OPENAI_API_KEY=sk-xxx
 OPENAI_BASE_URL=https://api.openai.com/v1
 LLM_MODEL=gpt-4o-mini
 EMBEDDING_API_KEY=sk-xxx
-EMBEDDING_BASE_URL=
-EMBEDDING_MODEL=text-embedding-3-small
+EMBEDDING_BASE_URL=https://api.mistral.ai/v1
+EMBEDDING_MODEL=mistral-embed
 MISTRAL_API_KEY=xxx
 TAVILY_API_KEY=tvly-xxx
 REDIS_URL=redis://localhost:6379/0
@@ -201,7 +201,7 @@ cd /home/ubuntu/career-compass/apps/agent-api
 uv run alembic upgrade head
 
 # 2. Ingest data ke ChromaDB (120 jobs + 40 learning resources)
-EMBEDDING_MODEL=gemini-embedding-001 uv run python3 -c "
+uv run python3 -c "
 from app.services.ingest import ingest_jobs, ingest_learning_resources
 print(ingest_jobs('../../data/raw_jobs.csv', recreate=True))
 print(ingest_learning_resources('../../data/learning_resources.json', recreate=True))
@@ -293,7 +293,7 @@ sudo systemctl restart career-compass-worker.service
 ### 9.5 Re-ingest Data ke ChromaDB (Reset Data Pasar)
 ```bash
 cd /home/ubuntu/career-compass/apps/agent-api
-EMBEDDING_MODEL=gemini-embedding-001 uv run python3 -c "
+EMBEDDING_MODEL=mistral-embed uv run python3 -c "
 from app.services.ingest import ingest_jobs, ingest_learning_resources
 print(ingest_jobs('../../data/raw_jobs.csv', recreate=True))
 print(ingest_learning_resources('../../data/learning_resources.json', recreate=True))
@@ -501,8 +501,8 @@ print(f'job_postings: {c.count()} dokumen')
 # Jika 0, jalankan ulang ingest (lihat §9.5)
 ```
 
-### Embedding rate limit (Gemini free tier)
-Tunggu ~1 menit antar ingest. Rate limit: 100 request/menit.
+### Embedding rate limit (Mistral free tier)
+Tunggu ~1 menit antar ingest bila perlu.
 Atau ganti ke provider embedding berbayar (OpenAI text-embedding-3-small).
 
 ### Celery task tidak jalan

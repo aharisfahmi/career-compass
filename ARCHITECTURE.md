@@ -541,18 +541,18 @@ from app.core.config import settings
 
 async def parse_cv_pdf(pdf_bytes: bytes) -> str:
     """Ekstrak teks dari PDF (selectable atau scanned) via Mistral OCR."""
-    import base64
+    from mistralai import Mistral
     client = Mistral(api_key=settings.MISTRAL_API_KEY)
-    base64_pdf = base64.b64encode(pdf_bytes).decode()
+    uploaded = await client.files.upload_async(
+        file={"file_name": "cv.pdf", "content": pdf_bytes},
+        purpose="ocr",
+    )
+    signed = await client.files.get_signed_url_async(file_id=uploaded.id)
     response = await client.ocr.process_async(
         model="mistral-ocr-latest",
-        document={
-            "type": "base64",
-            "document": base64_pdf,
-        },
+        document={"type": "document_url", "document_url": signed.url},
         include_image_base64=False,
     )
-    # Concatenate text from pages
     return "\n\n".join(page.markdown for page in response.pages)
 ```
 
@@ -747,7 +747,7 @@ import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 
 const transport = new DefaultChatTransport({
-  api: `${import.meta.env.VITE_API_URL}/workflow/{job_id}/stream`,
+  api: `${import.meta.env.VITE_API_URL}/api/v1/workflow/{job_id}/stream`,
 });
 ```
 
@@ -816,7 +816,7 @@ pnpm dev
 ### 15.3 Frontend Deploy
 
 ```bash
-VITE_API_URL=https://api.example.com pnpm build
+VITE_API_URL=https://api.example.com/api/v1 pnpm build
 wrangler pages deploy dist
 ```
 
@@ -845,7 +845,7 @@ class Settings(BaseSettings):
     # ke provider terpisah (mis. OpenAI asli atau Mistral).
     EMBEDDING_API_KEY: str | None = None
     EMBEDDING_BASE_URL: str | None = None
-    EMBEDDING_MODEL: str = "text-embedding-3-small"
+    EMBEDDING_MODEL: str = "mistral-embed"
 
     # --- Provider Lain ---
     MISTRAL_API_KEY: str                         # wajib untuk CV parsing OCR
@@ -895,10 +895,10 @@ OPENAI_API_KEY=sk-or-v1-xxx
 OPENAI_BASE_URL=https://openrouter.ai/api/v1
 LLM_MODEL=openrouter/mistral-large-latest
 
-# Embedding via OpenAI asli (terpisah)
-EMBEDDING_API_KEY=sk-proj-yyy
-# EMBEDDING_BASE_URL dikosongkan → default OpenAI
-EMBEDDING_MODEL=text-embedding-3-small
+# Embedding via Mistral (OpenAI-compatible endpoint)
+EMBEDDING_API_KEY=mistral-key
+EMBEDDING_BASE_URL=https://api.mistral.ai/v1
+EMBEDDING_MODEL=mistral-embed
 ```
 
 #### Skenario C — LLM via custom gateway, embedding via Mistral
@@ -915,7 +915,7 @@ EMBEDDING_BASE_URL=https://api.mistral.ai/v1
 EMBEDDING_MODEL=mistral-embed
 ```
 
-> ⚠️ **Catatan:** Bila `EMBEDDING_MODEL` bukan `text-embedding-3-small`, dimensi vektor bisa berbeda (mis. `mistral-embed` = 1024 dimensi). ChromaDB collection harus dibuat ulang dengan dimensi yang sesuai. Pertahankan satu model embedding sepanjang siklus aplikasi untuk MVP.
+> ⚠️ **Catatan:** Dimensi vektor bergantung pada model embedding (`mistral-embed` = 1024 dimensi). ChromaDB collection harus dibuat ulang bila berganti model. Pertahankan satu model embedding sepanjang siklus aplikasi untuk MVP.
 
 ### 16.3 Helper untuk Client
 

@@ -526,7 +526,7 @@ Tool harus mengembalikan **structured JSON**, bukan teks bebas.
 ### Technology
 
 - **ChromaDB** untuk MVP lokal (`PersistentClient`).
-- **OpenAI `text-embedding-3-small`** atau embedding model yang dikonfigurasi melalui environment variable (lihat `TECH_STACK.md` §1.5).
+- **`mistral-embed`** (Mistral) atau embedding model yang dikonfigurasi melalui environment variable (lihat `TECH_STACK.md` §1.5).
 - **Mistral OCR API** untuk parsing CV PDF (selectable + scanned). Bukan library lokal seperti pypdf (lihat `TECH_STACK.md` §1.7).
 
 ### Collections
@@ -612,7 +612,7 @@ Live scraping tidak menjadi dependency untuk demo.
 | Frontend | React + Vite + TanStack Router/Query + AI SDK (`useChat` + `DefaultChatTransport`) + `react-markdown` |
 | Agent orchestration | Agno (Python orchestrator + Agno Agent instances). Bukan LangGraph (lihat `TECH_STACK.md` §1.4). |
 | LLM integration | OpenAI SDK atau OpenAI-compatible endpoint; model configurable (OpenAI / Mistral / OpenRouter / Anthropic / Gemini) |
-| Embeddings | `text-embedding-3-small` atau configurable |
+| Embeddings | `mistral-embed` atau configurable via env |
 | Structured output | Pydantic BaseModel (`structured_output`) |
 | MCP server | FastMCP (Python `mcp` SDK), transport STDIO lokal |
 | Vector database | ChromaDB (`PersistentClient`) |

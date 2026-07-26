@@ -24,7 +24,7 @@ Ringkasan:
 - **Database**: SQLite via SQLModel + async (aiosqlite + greenlet) + Alembic migration
 - **Background Task**: Celery + Redis (broker + PubSub untuk SSE)
 - **Vector DB**: ChromaDB (`PersistentClient`)
-- **Embeddings**: `text-embedding-3-small` (OpenAI)
+- **Embeddings**: `mistral-embed` (Mistral) atau configurable via env
 - **Agent Framework**: Agno (fallback: OpenAI Agents SDK)
 - **LLM**: Bebas (OpenAI / Mistral / OpenRouter / Anthropic / Gemini)
 - **MCP**: FastMCP (Python `mcp` SDK), transport STDIO lokal
