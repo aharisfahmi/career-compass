@@ -80,6 +80,11 @@ skills-lock.json
 TODO.local.md
 NOTES.local.md
 
+# ─── User Upload Artifacts ───────────────────────────────────────
+cv.pdf
+cv.txt
+input.txt
+
 # moon
 .moon/cache
 .moon/docker
