@@ -25,8 +25,6 @@ class Settings(BaseSettings):
     CORS_ORIGINS: str = "*"
     CHROMA_DB_PATH: str = "./data/chroma_db"
 
-    VECTOR_DIMENSION: int = 3072
-
     @property
     def effective_embedding_api_key(self) -> str:
         return self.EMBEDDING_API_KEY or self.OPENAI_API_KEY

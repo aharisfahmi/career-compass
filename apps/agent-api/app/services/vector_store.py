@@ -1,14 +1,5 @@
-from openai import OpenAI
 import chromadb
-
 from app.core.config import settings
-
-
-def get_embedding_client() -> OpenAI:
-    return OpenAI(
-        api_key=settings.effective_embedding_api_key,
-        base_url=settings.effective_embedding_base_url,
-    )
 
 
 def get_chroma_client() -> chromadb.PersistentClient:
@@ -31,13 +22,9 @@ def get_learning_collection() -> chromadb.Collection:
     )
 
 
-def embed_text(text: str) -> list[float]:
-    client = get_embedding_client()
-    resp = client.embeddings.create(
-        input=text,
-        model=settings.EMBEDDING_MODEL,
-    )
-    return resp.data[0].embedding
+def _keyword_score(text: str, query_terms: list[str]) -> int:
+    text_lower = text.lower()
+    return sum(1 for t in query_terms if t in text_lower)
 
 
 def search_jobs(
@@ -46,10 +33,8 @@ def search_jobs(
     seniority: str | None = None,
     location: str | None = None,
     top_k: int = 10,
-    distance_threshold: float = 1.2,
 ) -> list[dict]:
     collection = get_job_collection()
-    query_emb = embed_text(query)
     where_filters = {}
     if role:
         where_filters["normalized_role"] = role
@@ -58,44 +43,23 @@ def search_jobs(
     if location:
         where_filters["location"] = location
 
-    results = collection.query(
-        query_embeddings=[query_emb],
-        n_results=top_k,
-        where=where_filters if where_filters else None,
-    )
+    if where_filters:
+        results = collection.get(where=where_filters)
+        docs = _format_results(results)
+        if docs:
+            return docs[:top_k]
 
-    docs = []
-    for i, doc in enumerate(results["documents"][0]):
-        distance = results["distances"][0][i] if results["distances"] else 0
-        if distance > distance_threshold:
-            continue
-        metadata = results["metadatas"][0][i] if results["metadatas"] else {}
-        docs.append({
-            "id": results["ids"][0][i],
-            "document": doc,
-            "distance": distance,
-            **metadata,
-        })
-
-    if not docs and role:
-        # Fallback: no results with role filter, retry semantic-only
-        results = collection.query(
-            query_embeddings=[query_emb],
-            n_results=top_k,
-        )
-        for i, doc in enumerate(results["documents"][0]):
-            distance = results["distances"][0][i] if results["distances"] else 0
-            if distance > distance_threshold:
-                continue
-            metadata = results["metadatas"][0][i] if results["metadatas"] else {}
-            docs.append({
-                "id": results["ids"][0][i],
-                "document": doc,
-                "distance": distance,
-                **metadata,
-            })
-
-    return docs
+    results = collection.get()
+    docs = _format_results(results)
+    query_terms = query.lower().split()
+    scored = []
+    for d in docs:
+        text = " ".join(str(v) for v in [d.get("title", ""), d.get("description", ""), d.get("document", "")])
+        score = _keyword_score(text, query_terms)
+        if score > 0:
+            scored.append((score, d))
+    scored.sort(key=lambda x: -x[0])
+    return [d for _, d in scored[:top_k]]
 
 
 def search_learning_chroma(
@@ -104,22 +68,20 @@ def search_learning_chroma(
     top_k: int = 5,
 ) -> list[dict]:
     collection = get_learning_collection()
-    query_text = " ".join(skills)
-    query_emb = embed_text(query_text)
-
     where_filters = {}
     if language and language != "both":
         where_filters["language"] = language
 
-    results = collection.query(
-        query_embeddings=[query_emb],
-        n_results=top_k,
-        where=where_filters if where_filters else None,
-    )
+    results = collection.get(where=where_filters if where_filters else None)
 
     items = []
-    for i, doc in enumerate(results["documents"][0]):
-        metadata = results["metadatas"][0][i] if results["metadatas"] else {}
+    query_terms = [s.lower() for s in skills]
+    for i, doc in enumerate(results["documents"]):
+        metadata = results["metadatas"][i] if results["metadatas"] else {}
+        text = doc + " " + " ".join(str(v) for v in metadata.values())
+        score = _keyword_score(text, query_terms)
+        if score == 0:
+            continue
         items.append({
             "title": metadata.get("title", ""),
             "provider": metadata.get("provider", ""),
@@ -129,8 +91,25 @@ def search_learning_chroma(
             "language": metadata.get("language", "id"),
             "source": "chromadb",
             "last_verified_at": metadata.get("last_verified_at", ""),
+            "_keyword_score": score,
         })
-    return items
+    items.sort(key=lambda x: -x["_keyword_score"])
+    for item in items:
+        item.pop("_keyword_score", None)
+    return items[:top_k]
+
+
+def _format_results(results: dict) -> list[dict]:
+    docs = []
+    for i, doc in enumerate(results["documents"]):
+        metadata = results["metadatas"][i] if results["metadatas"] else {}
+        docs.append({
+            "id": results["ids"][i],
+            "document": doc,
+            "distance": 0.0,
+            **metadata,
+        })
+    return docs
 
 
 def get_role_skill_stats(role: str) -> dict:
@@ -139,7 +118,8 @@ def get_role_skill_stats(role: str) -> dict:
     all_required = []
     for meta in results["metadatas"]:
         if meta and meta.get("required_skills"):
-            all_required.extend(meta["required_skills"].split("|") if isinstance(meta["required_skills"], str) else meta["required_skills"])
+            raw = meta["required_skills"]
+            all_required.extend(raw.split("|") if isinstance(raw, str) else raw)
     from collections import Counter
     freq = Counter(s.strip() for s in all_required)
     return {

@@ -52,7 +52,7 @@ export function CvUpload({ onExtracted }: Props) {
       <input
         ref={inputRef}
         type="file"
-        accept=".pdf"
+        accept=".pdf,.txt"
         className="hidden"
         onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUpload(f); }}
       />
@@ -63,7 +63,7 @@ export function CvUpload({ onExtracted }: Props) {
           </svg>
         </div>
         <div>
-          <p className="font-medium text-[var(--color-text-heading)]">Upload CV (PDF)</p>
+          <p className="font-medium text-[var(--color-text-heading)]">Upload CV (PDF / TXT)</p>
           <p className="text-sm text-[var(--color-text-secondary)] mt-1">Seret file ke sini atau klik untuk memilih</p>
         </div>
         {uploading && (
