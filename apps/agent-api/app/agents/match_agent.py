@@ -19,6 +19,6 @@ def build_match_agent() -> Agent:
             "Jelaskan skor tanpa mengubah hasil perhitungan.",
             "Identifikasi missing_critical_skills berdasarkan perbandingan profil dengan requirement.",
         ],
-        response_model=RoleFitResult,
+        output_model=RoleFitResult,
         structured_outputs=True,
     )
