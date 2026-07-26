@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Dict, Any
 
-router = APIRouter()
+router = APIRouter(prefix="/api/v1")
 
 
 class SessionResponse(BaseModel):

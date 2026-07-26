@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
-router = APIRouter()
+router = APIRouter(prefix="/api/v1")
 
 
 class WorkflowSubmit(BaseModel):

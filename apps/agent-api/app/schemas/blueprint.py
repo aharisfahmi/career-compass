@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
+from app.schemas.profile import ExtractedProfile
 
 
 class MarketEvidence(BaseModel):

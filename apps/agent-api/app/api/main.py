@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.api.routers import workflow, session, profile
@@ -17,7 +17,12 @@ app.include_router(workflow.router)
 app.include_router(session.router)
 app.include_router(profile.router)
 
+health_router = APIRouter(prefix="/api/v1")
 
-@app.get("/health")
+
+@health_router.get("/health")
 async def health():
     return {"status": "ok"}
+
+
+app.include_router(health_router)

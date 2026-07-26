@@ -38,6 +38,7 @@ dist/
 # data/raw_jobs.csv dan data/learning_resources.json sudah di-track
 # sebagai template; chroma_db dan DB file harus ignored.
 data/chroma_db/
+apps/agent-api/data/chroma_db/
 data/*.db
 data/*.sqlite
 data/*.sqlite3

@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException, UploadFile, File
 from pydantic import BaseModel
 from typing import Dict, Any, Optional
 
-router = APIRouter()
+router = APIRouter(prefix="/api/v1")
 
 
 class ProfileInput(BaseModel):
