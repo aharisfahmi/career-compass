@@ -20,5 +20,5 @@ def build_match_agent() -> Agent:
             "Identifikasi missing_critical_skills berdasarkan perbandingan profil dengan requirement.",
         ],
         output_schema=RoleFitResult,
-        structured_outputs=True,
+        structured_outputs=False,
     )

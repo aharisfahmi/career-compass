@@ -21,5 +21,5 @@ def build_quality_agent() -> Agent:
             "Set quality_approved = True hanya jika semua kriteria terpenuhi.",
         ],
         output_schema=CareerBlueprint,
-        structured_outputs=True,
+        structured_outputs=False,
     )

@@ -1,0 +1,28 @@
+Input Profil
+
+Nama Lengkap:
+Ahmad Haris Fahmi
+
+Posisi Saat Ini:
+Backend Developer
+
+Tahun Pengalaman:
+2
+
+Hard Skills (pisahkan dengan koma):
+Go, PHP, SQL
+
+Soft Skills (pisahkan dengan koma):
+Komunikasi, Teamwork
+
+Pendidikan:
+S1 Informatika
+
+Role Target (pisahkan dengan koma):
+Senior Backend Developer, Golang Developer, PHP Developer
+
+Jam Belajar per Minggu:
+2
+
+Budget (IDR):
+0

@@ -21,5 +21,5 @@ def build_roadmap_agent() -> Agent:
             "Cantumkan URL sumber belajar yang valid.",
         ],
         output_schema=LearningRoadmap,
-        structured_outputs=True,
+        structured_outputs=False,
     )

@@ -19,5 +19,5 @@ def build_profile_agent() -> Agent:
             "Abaikan atribut sensitif seperti usia, agama, status pernikahan.",
         ],
         output_schema=ExtractedProfile,
-        structured_outputs=True,
+        structured_outputs=False,
     )

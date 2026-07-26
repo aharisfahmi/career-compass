@@ -1,0 +1,56 @@
+﻿Ahmad Haris Fahmi 
+aharisfahmi.work@gmail.com | +6285384568854 | https://www.linkedin.com/in/aharisfahmi | https://aharisfahmi.github.io
+  
+
+
+
+SUMMARY
+Backend Developer with 6 years of experience in Golang and PHP, building backend systems across enterprise financial ERP, university-scale HRIS and attendance platforms. Strong in REST API development, database performance tuning, and maintaining reliable transaction-heavy services in production environments.
+
+
+EXPERIENCE
+Backend Developer | PT. Zahir Internasional        Feb 2022 - Jun 2025
+* Maintained dual-core backend architecture serving 4 production applications (Zahir ERP, ZahirOnline, Zahir PosX, Zahir HR) supporting 500+ clients with zero-downtime during system transition period.
+* Contributed to report-generator rewrite (Node.js to Golang), translated core report logic and implemented initial Go endpoints, lowering memory footprint by 100+ MB and removing large-report out of memory failures in production.
+* Resolved 25+ critical financial reporting bugs including journal inconsistencies, calculation errors, and duplicate data issues affecting profit/loss statements and balance sheets.
+* Fixed 15+ transaction processing bugs addressing serial number tracking errors, inventory validation issues, and multi-currency calculation problems.
+* Developed backend data-adapter endpoints to feed Jasper/HTML report templates (20+ templates) including profit/loss statements, inventory analysis, and payment tracking reports.
+* Enhanced accrual handling, implemented partial allocation logic for accrued expenses/incomes and backend APIs to surface accruals in invoice flows and reports.
+* Developed inventory tracking features including lot/serial number validation across multiple transaction types (transfers, adjustments, production).
+* Optimized report queries and filters for financial statements including budget variance analysis, improving data accuracy and resolving calculation errors across departmental and project-level reports.
+
+
+Programmer (Backend) | Universitas Islam Indonesia        May 2019 - Dec 2021
+* Built microservices-based attendance system migration from legacy MS Access fingerprint system to online platform during COVID-19, serving 3000+ daily users.
+* Developed database migration service to automate attendance data transfer (2000+ records daily), eliminating manual errors and ensuring data consistency.
+* Built employee management system serving 3000+ daily users, standardizing workflows across multiple domains (academic, admissions, finance).
+* Configured Kafka Connect connectors (registered source & sink) for cross-database synchronization, enabling real-time data propagation across microservices without manual ETL processes.
+* Designed and developed REST APIs with performance optimizations including database indexing and caching strategies.
+* Onboarded and mentored 8+ team members through system walkthroughs, knowledge-sharing sessions, and technical guidance.
+* Collaborated with cross-functional stakeholders to ensure system requirements alignment and successful project delivery.
+* Maintained technical documentation in Confluence and performed comprehensive API validation testing.
+
+
+Intern Web Developer | Komuri GeekGarden                                                        Nov 2017 - Dec 2017
+* Contributed to production web applications using PHP (Laravel) and MySQL.
+* Developed an internal project management application with task tracking functionality.
+* Collaborated with senior developers on code reviews and learned software development best practices.
+
+
+
+
+Web Programming Lab Assistant | Universitas Islam Indonesia        Mar 2017 - Jun 2017
+* Delivered web programming lectures covering HTML, CSS, JavaScript, and web fundamentals.
+* Mentored 10 students through course assignments and project work.
+EDUCATION
+Universitas Islam Indonesia | Informatika | CGPA: 3.76        Sep 2014 - Feb 2019
+
+
+SKILL
+* Backend Development: Golang, PHP (Laravel/Lumen), REST APIs, Microservices Architecture, Service-Oriented Architecture, Object-Oriented Programming, Software Development Life Cycle, Agile/Scrum, System Design, Legacy System Migration.
+* Frontend Development: JavaScript, jQuery, HTML, CSS, Bootstrap.
+* Databases & Data: PostgreSQL, MySQL, MS Access, Redis (Caching), Database Optimization, Query Performance Tuning, Indexing, Data Migration, ETL Processes, Kafka Connect (Data Synchronization).
+* Tools & Technologies: Docker, Git, Linux, Confluence, Postman, Jasper Reports, AWS S3.
+* Performance & Quality: Performance Tuning, Memory Optimization, Debugging, Root Cause Analysis, Code Review, Pair Programming, Manual Testing, API Testing, Production Support, Incident Resolution.
+* Business Domains: ERP Software (Inventory, Finance, Manufacturing), Financial Systems (Accounting, Multi-Currency, Budget Analysis), HR Information Systems, Project Management Systems, Reporting & Analytics.
+* Soft Skills: Cross-functional Collaboration, Technical Mentoring & Knowledge Transfer, Technical Documentation, Problem Solving & Analytical Thinking.

@@ -22,5 +22,5 @@ def build_market_agent() -> Agent:
             "Jangan membuat data lowongan palsu.",
         ],
         output_schema=MarketEvidence,
-        structured_outputs=True,
+        structured_outputs=False,
     )
