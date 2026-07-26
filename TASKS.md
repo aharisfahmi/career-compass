@@ -39,17 +39,17 @@
 
 - [x] **Task 4.1**: `app/core/celery_app.py` (Celery + Redis) + `app/workflow/tasks.py` (PubSub progress).
 - [x] **Task 4.2**: `app/api/main.py` — FastAPI app + CORSMiddleware.
-- [x] **Task 4.3**: Router `POST /workflow/submit` → enqueue Celery task.
-- [x] **Task 4.4**: Router `GET /workflow/{job_id}/stream` → SSE `StreamingResponse`.
-- [x] **Task 4.5**: Router `GET /session/{session_id}` → blueprint dari SQLite.
+- [x] **Task 4.3**: Router `POST /api/v1/workflow/submit` → enqueue Celery task.
+- [x] **Task 4.4**: Router `GET /api/v1/workflow/{job_id}/stream` → SSE `StreamingResponse`.
+- [x] **Task 4.5**: Router `GET /api/v1/session/{session_id}` → blueprint dari SQLite.
 - [x] **Task 4.6**: Langfuse init di `app/core/observability.py`.
 
 ## Phase 5: Frontend, UI Workflow & Career Blueprint (Hari 9)
 
 - [x] **Task 5.1**: `ProfileForm.tsx` — input field + validasi client-side.
-- [x] **Task 5.2**: `CvUpload.tsx` — upload PDF, POST ke `/profile/extract`.
+- [x] **Task 5.2**: `CvUpload.tsx` — upload PDF, POST ke `/api/v1/profile/extract`.
 - [x] **Task 5.3**: Komponen konfirmasi profil sebelum submit workflow.
-- [x] **Task 5.4**: `useWorkflowStream.ts` hook — SSE ke `/workflow/{job_id}/stream`.
+- [x] **Task 5.4**: `useWorkflowStream.ts` hook — SSE ke `/api/v1/workflow/{job_id}/stream`.
 - [x] **Task 5.5**: `WorkflowProgress.tsx` — render tahap aktif dari SSE event.
 - [x] **Task 5.6**: `AgentTrace.tsx` — nama agent, status, waktu.
 - [x] **Task 5.7**: `CareerBlueprint.tsx` — render top paths, skor, skill gap, roadmap, sources.

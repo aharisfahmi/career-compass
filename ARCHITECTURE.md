@@ -607,12 +607,12 @@ def run_career_blueprint_task(self, initial_state: dict) -> dict:
 ### 9.4 API SSE (`app/api/routers/workflow.py`)
 
 ```python
-@router.post("/workflow/submit")
+@router.post("/api/v1/workflow/submit")
 async def submit_workflow(payload: WorkflowSubmit) -> dict:
     task = run_career_blueprint_task.delay(payload.initial_state)
     return {"job_id": task.id, "status": "queued"}
 
-@router.get("/workflow/{job_id}/stream")
+@router.get("/api/v1/workflow/{job_id}/stream")
 async def stream_workflow(job_id: str):
     async def event_generator():
         pubsub = redis.asyncio.Redis.from_url(settings.REDIS_URL)
@@ -747,7 +747,7 @@ import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 
 const transport = new DefaultChatTransport({
-  api: `${import.meta.env.VITE_API_URL}/workflow/stream`,
+  api: `${import.meta.env.VITE_API_URL}/workflow/{job_id}/stream`,
 });
 ```
 

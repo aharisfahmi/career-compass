@@ -28,7 +28,7 @@ CareerCompass is a **Multi-Agent System** and **MCP (Model Context Protocol)** b
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                      agent-api (FastAPI)                        │
-│  Routers: /workflow/submit, /workflow/{id}/stream, /session     │
+│  Routers: /api/v1/workflow/submit, /api/v1/workflow/{id}/stream, /api/v1/session     │
 └────────────────────────────┬────────────────────────────────────┘
                              │ Celery task
                              ▼
