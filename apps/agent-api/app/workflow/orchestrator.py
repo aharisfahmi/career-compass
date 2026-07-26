@@ -127,9 +127,15 @@ async def _run_match_step(state: CareerOptimizerState, emit) -> CareerOptimizerS
             required_skills_raw_list = [s.strip() for s in required_skills_raw.split("|") if s.strip()] if required_skills_raw else []
             user_skills_raw = profile.get("hard_skills", []) + profile.get("soft_skills", [])
 
-            from app.utils.skill_taxonomy import normalize_skills
+            from app.utils.skill_taxonomy import normalize_skills, SKILL_TAXONOMY
             user_skills = [ns["canonical"] for ns in normalize_skills(user_skills_raw)]
             required_skills = [ns["canonical"] for ns in normalize_skills(required_skills_raw_list)]
+
+            if not required_skills:
+                desc_text = " ".join(j.get("description", "") or "" for j in role_jobs).lower()
+                matched_keywords = [kw for kw in SKILL_TAXONOMY if kw in desc_text]
+                if matched_keywords:
+                    required_skills = [ns["canonical"] for ns in normalize_skills(matched_keywords)]
 
             from app.utils.scoring import calculate_role_fit_score
             required_experiences = []
@@ -203,6 +209,27 @@ async def _run_roadmap_step(state: CareerOptimizerState, emit) -> CareerOptimize
                         existing_titles.add(wr["title"])
             except Exception as e:
                 logger.warning(f"Tavily learning search failed: {e}")
+
+        if not missing:
+            role_lower = target_role.lower()
+            if "project" in role_lower or ("manager" in role_lower and "product" not in role_lower):
+                missing = ["Strategic Planning", "Portfolio Management", "Agile at Scale", "Executive Communication", "Change Management"]
+            elif "data" in role_lower and "engineer" not in role_lower:
+                missing = ["Advanced Statistics", "Machine Learning", "ETL Pipeline", "Cloud Platforms", "Data Storytelling"]
+            elif "data" in role_lower or "engineer" in role_lower:
+                missing = ["Apache Spark", "Kubernetes", "Data Warehousing", "Apache Airflow", "dbt"]
+            elif "frontend" in role_lower or "ui" in role_lower or "ux" in role_lower:
+                missing = ["Advanced TypeScript", "Performance Optimization", "Testing", "Animation", "Accessibility"]
+            elif "backend" in role_lower or "golang" in role_lower or "python" in role_lower or "java" in role_lower:
+                missing = ["System Design", "Microservices", "Docker", "Kubernetes", "Database Optimization"]
+            elif "devops" in role_lower or "sre" in role_lower:
+                missing = ["Terraform", "Prometheus", "Grafana", "CI/CD Advanced", "Security"]
+            elif "mobile" in role_lower:
+                missing = ["App Architecture", "CI/CD Mobile", "Performance Optimization", "Push Notifications", "Offline Storage"]
+            elif "product" in role_lower:
+                missing = ["Product Analytics", "A/B Testing", "User Research", "Growth Strategy", "Data-Driven Decision Making"]
+            else:
+                missing = ["Problem Solving", "System Design", "Communication", "Leadership", "Domain Expertise"]
 
         if len(missing) >= 3:
             phase_30 = missing[::3]
