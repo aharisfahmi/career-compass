@@ -1,7 +1,7 @@
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from app.core.config import settings
-from app.schemas.blueprint import MarketEvidence
+from app.schemas.profile import ExtractedProfile
 
 
 def build_profile_agent() -> Agent:
