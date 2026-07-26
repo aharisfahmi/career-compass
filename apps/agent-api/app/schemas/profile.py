@@ -13,6 +13,25 @@ class ExtractedProfile(BaseModel):
     learning_hours_per_week: int = Field(default=10)
     budget_idr: float = Field(default=0.0)
 
+    @field_validator("education", mode="before")
+    @classmethod
+    def coerce_education(cls, v):
+        if v is None:
+            return None
+        if isinstance(v, str):
+            return v
+        if isinstance(v, dict):
+            return ", ".join(f"{k}: {v}" for k, v in v.items())
+        if isinstance(v, list):
+            parts = []
+            for item in v:
+                if isinstance(item, dict):
+                    parts.append("; ".join(f"{k}: {v}" for k, v in item.items()))
+                else:
+                    parts.append(str(item))
+            return " | ".join(parts)
+        return str(v)
+
     @field_validator("budget_idr", mode="before")
     @classmethod
     def coerce_budget(cls, v):
