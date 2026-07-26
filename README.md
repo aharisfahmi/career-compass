@@ -194,6 +194,21 @@ uv run python scripts/run_evals.py
 
 Latency, cost, token usage, and hallucination metrics are reported to the Langfuse dashboard.
 
+### UI Screenshot Test (Playwright)
+
+Capture screenshots of each UI step (form → confirmation → blueprint) using Playwright CLI:
+
+```bash
+# Via pnpm:
+cd apps/agent-frontend
+pnpm test:screenshot
+
+# Or directly:
+bash scripts/test-ui-screenshots.sh
+```
+
+Screenshots are saved to `~/pictures/01-home.png` through `~/pictures/04-career-blueprint.png`.
+
 ---
 
 ## 📊 Measuring Agent Performance

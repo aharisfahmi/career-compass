@@ -76,6 +76,9 @@ langfuse_data/
 skills-lock.json
 .opencode/
 
+# ─── Playwright ──────────────────────────────────────────────────
+.playwright-cli/
+
 # ─── Misc ────────────────────────────────────────────────────────
 TODO.local.md
 NOTES.local.md

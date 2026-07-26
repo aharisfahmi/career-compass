@@ -76,6 +76,25 @@ def search_jobs(
             "distance": distance,
             **metadata,
         })
+
+    if not docs and role:
+        # Fallback: no results with role filter, retry semantic-only
+        results = collection.query(
+            query_embeddings=[query_emb],
+            n_results=top_k,
+        )
+        for i, doc in enumerate(results["documents"][0]):
+            distance = results["distances"][0][i] if results["distances"] else 0
+            if distance > distance_threshold:
+                continue
+            metadata = results["metadatas"][0][i] if results["metadatas"] else {}
+            docs.append({
+                "id": results["ids"][0][i],
+                "document": doc,
+                "distance": distance,
+                **metadata,
+            })
+
     return docs
 
 

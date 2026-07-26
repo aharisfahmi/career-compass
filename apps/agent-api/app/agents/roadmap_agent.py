@@ -19,6 +19,7 @@ def build_roadmap_agent() -> Agent:
             "Susun roadmap 30/60/90 hari dengan action items konkret.",
             "Sesuaikan dengan jam belajar per minggu dan budget pengguna.",
             "Cantumkan URL sumber belajar yang valid.",
+            "Output JSON field: target_role, phase_30_days (list), phase_60_days (list), phase_90_days (list), priority_skills (list), resources (list of objects with title, provider, url, cost_idr, duration_hours, language, source, last_verified_at).",
         ],
         output_schema=LearningRoadmap,
         structured_outputs=False,

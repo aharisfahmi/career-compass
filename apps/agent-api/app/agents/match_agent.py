@@ -18,6 +18,7 @@ def build_match_agent() -> Agent:
             "Panggil normalize_skills untuk normalisasi skill.",
             "Jelaskan skor tanpa mengubah hasil perhitungan.",
             "Identifikasi missing_critical_skills berdasarkan perbandingan profil dengan requirement.",
+            "Output JSON field: role_name, total_score (0-100), confidence_level (HIGH/MEDIUM/LOW), score_breakdown (dict), matching_skills (list), missing_critical_skills (list), evidence_job_ids (list), reasoning_summary (str).",
         ],
         output_schema=RoleFitResult,
         structured_outputs=False,

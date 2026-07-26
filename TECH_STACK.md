@@ -183,6 +183,7 @@ Setelah sebuah library/framework dipilih sebagai **base**, **fitur tambahan** da
 |---|---|---|
 | **OpenCode / Codex CLI** | ✅ | Coding agent untuk development |
 | **`AGENTS.md`** | ✅ | Konfigurasi coding agent di root repo |
+| **Playwright CLI** (`@playwright/cli`) | ✅ | Screenshot test untuk UI workflow tanpa setup browser terpisah |
 
 ### 1.15 Web Search (Enrichment Layer)
 
@@ -228,6 +229,8 @@ search_learning_resources(skills, budget, language, duration)
 | **Langfuse Scoring** (boolean / categorical / numeric) | ✅ | Trace-level scoring otomatis |
 | **Chunking Evals** (Coverage, Boundary, Retrieval Readiness) | ✅ | Untuk tuning RAG |
 | **pytest** | ✅ | Framework testing Python standar, sudah direferensikan di `AGENTS.md` |
+| **`tests/test_e2e_workflow.py`** | ✅ | Workflow E2E test (langsung, tanpa Celery) — jalankan dengan `uv run --directory apps/agent-api python tests/test_e2e_workflow.py` |
+| **`scripts/test-ui-screenshots.sh`** | ✅ | UI screenshot test via Playwright CLI — `pnpm --directory apps/agent-frontend run test:screenshot` |
 
 ---
 

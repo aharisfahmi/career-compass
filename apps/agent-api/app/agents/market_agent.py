@@ -20,6 +20,7 @@ def build_market_agent() -> Agent:
             "Gunakan tool get_salary_benchmark untuk data gaji.",
             "Output harus menyertakan evidence_job_ids dari ChromaDB.",
             "Jangan membuat data lowongan palsu.",
+            "Output JSON field: role_name, retrieved_jobs (list), market_stats (dict), salary_benchmark (dict|null), evidence_job_ids (list).",
         ],
         output_schema=MarketEvidence,
         structured_outputs=False,

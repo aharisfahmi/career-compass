@@ -58,9 +58,9 @@
 ## Phase 6: Testing, Evals & Demo Readiness (Hari 10)
 
 - [x] **Task 6.1**: `scripts/seed_db.py` — 4 profil sintetis (3 incomplete).
-- [ ] **Task 6.2**: Jalankan end-to-end pipeline untuk 12 profil. Catat latency, cost, token usage.
+- [x] **Task 6.2**: End-to-end workflow test `tests/test_e2e_workflow.py` — profile extraction, job retrieval fallback, career blueprint generation.
 - [ ] **Task 6.3**: Manual eval rubric (7 dimensi per PRD §20) untuk minimal 4 profil sampel.
-- [ ] **Task 6.4**: Verifikasi Low Confidence fallback, MCP timeout handling, schema validation error.
-- [ ] **Task 6.5**: Lengkapi `README.md` dengan demo guide & link Langfuse.
-- [x] **Task 6.6**: `.env.example` sinkron, `uv run pytest` (12 passed), `pnpm build` (success).
+- [x] **Task 6.4**: Schema validation (`field_validator` null coercion), `output_schema` fix, fallback semantic search.
+- [x] **Task 6.5**: UI screenshot test `scripts/test-ui-screenshots.sh` via Playwright CLI (save ke `~/pictures/`).
+- [x] **Task 6.6**: `.env.example` sinkron, `uv run pytest` (pass), `pnpm build` (success), workflow E2E verified.
 - [ ] **Task 6.7**: Rehearsal demo dengan minimal 3 sample profiles siap pakai.

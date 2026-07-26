@@ -72,7 +72,8 @@ career-compass/
 │   │       ├── test_scoring.py
 │   │       ├── test_mcp_tools.py
 │   │       ├── test_workflow.py
-│   │       └── test_ingest.py
+│   │       ├── test_ingest.py
+│   │       └── test_e2e_workflow.py   # E2E workflow test (no Celery)
 │   └── agent-frontend/              # React + Vite + TanStack Router/Query
 │       ├── package.json
 │       ├── vite.config.ts
@@ -100,7 +101,8 @@ career-compass/
 │   ├── learning_resources.json      # Dataset 30+ sumber belajar
 │   └── chroma_db/                   # Storage ChromaDB
 └── scripts/
-    └── seed_db.py                   # Init schema + seed demo profiles
+    ├── seed_db.py                   # Init schema + seed demo profiles
+    └── test-ui-screenshots.sh       # Playwright UI screenshot test
 ```
 
 ---
@@ -154,13 +156,10 @@ class CareerOptimizerState(TypedDict):
 Routing bersifat **deterministik Python** (bukan LLM). Sesuai PRD §14.1: "Supervisor lebih banyak memakai kode deterministik daripada keputusan LLM."
 
 ```python
-from agno.agent import Agent
+import json
 from app.workflow.state import CareerOptimizerState
 from app.agents.profile_agent import build_profile_agent
-from app.agents.market_agent import build_market_agent
-from app.agents.match_agent import build_match_agent
-from app.agents.roadmap_agent import build_roadmap_agent
-from app.agents.quality_agent import build_quality_agent
+from app.services.vector_store import search_jobs, get_role_skill_stats
 
 MAX_REVISIONS = 1
 
@@ -170,49 +169,29 @@ async def run_workflow(
 ) -> CareerOptimizerState:
     state = initial_state
 
-    # Step 1: Profile Analyst (loop until user confirms)
-    profile_agent: Agent = build_profile_agent()
-    state = await _run_agent(profile_agent, state, "profile", on_event)
-    # Confirmation handled at API layer (suspend workflow, resume after user OK)
+    # Step 1: Profile Analyst — satu-satunya sub-agent yang dipanggil
+    state = await _run_profile_step(state, on_event)
 
-    # Step 2: Market Evidence Agent
-    market_agent: Agent = build_market_agent()
-    state = await _run_agent(market_agent, state, "market", on_event)
+    # Step 2: Market — deterministik, panggil search_jobs + fallback
+    state = await _run_market_step(state, on_event)
 
-    # Conditional: limited-data fallback
-    if len(state.get("retrieved_jobs", [])) < 5:
-        state = _apply_limited_data_fallback(state)
-        state["execution_logs"].append({"step": "fallback", "status": "applied"})
+    # Step 3: Match — deterministik, panggil calculate_role_fit_score
+    state = await _run_match_step(state, on_event)
 
-    # Step 3: Match & Gap Agent
-    match_agent: Agent = build_match_agent()
-    state = await _run_agent(match_agent, state, "market", on_event)
+    # Step 4: Roadmap — deterministik, panggil search_learning_chroma
+    state = await _run_roadmap_step(state, on_event)
 
-    # Step 4: Roadmap Planner
-    roadmap_agent: Agent = build_roadmap_agent()
-    state = await _run_agent(roadmap_agent, state, "roadmap", on_event)
+    # Step 5: Quality — deterministik, build CareerBlueprint dict
+    state = await _run_quality_step(state, on_event)
 
-    # Step 5: Report & Quality (with 1 retry)
-    quality_agent: Agent = build_quality_agent()
-    state = await _run_agent(quality_agent, state, "quality", on_event)
-
+    # Revision loop
     revision = 0
     while not state["quality_approved"] and revision < MAX_REVISIONS:
         revision += 1
-        state["revision_count"] = revision
-        # Re-run Roadmap + Quality
-        state = await _run_agent(roadmap_agent, state, "roadmap", on_event)
-        state = await _run_agent(quality_agent, state, "quality", on_event)
+        state = await _run_roadmap_step(state, on_event)
+        state = await _run_quality_step(state, on_event)
 
-    return state
-
-
-async def _run_agent(agent: Agent, state, step_name, on_event):
-    # Wrap Agno Agent run + emit SSE event
-    result = await agent.arun(...)
-    # merge result into state
-    if on_event:
-        await on_event({"type": "step_end", "step": step_name, "status": "ok"})
+    await on_event({"type": "finish", "status": "...", "blueprint": state.get("career_blueprint", {})})
     return state
 ```
 
@@ -429,7 +408,7 @@ Job postings **tetap ChromaDB-only** karena alasan compliance (PRD §3 Non-Goals
 ### `ExtractedProfile` (`schemas/profile.py`)
 
 ```python
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from typing import List, Optional
 
 class ExtractedProfile(BaseModel):
@@ -442,6 +421,12 @@ class ExtractedProfile(BaseModel):
     target_roles: List[str] = Field(default_factory=list)
     learning_hours_per_week: int = Field(default=10)
     budget_idr: float = Field(default=0.0)
+
+    @field_validator("budget_idr", "years_of_experience", mode="before")
+    @classmethod
+    def coerce_null_to_zero(cls, v):
+        """LLM sering output null untuk numeric field."""
+        return 0.0 if v is None else v
 ```
 
 ### `RoleFitResult` (`schemas/blueprint.py`)

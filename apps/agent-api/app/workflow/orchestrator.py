@@ -55,11 +55,13 @@ async def _run_profile_step(state: CareerOptimizerState, emit) -> CareerOptimize
         agent = build_profile_agent()
         raw = state.get("raw_cv_text") or json.dumps(state.get("user_input_form", {}))
         result = await agent.arun(raw)
-        if hasattr(result, "content"):
-            parsed = result.content
+        content = result.content if hasattr(result, "content") else result
+        if hasattr(content, "model_dump"):
+            state["confirmed_profile"] = content.model_dump()
+        elif isinstance(content, dict):
+            state["confirmed_profile"] = content
         else:
-            parsed = result
-        state["confirmed_profile"] = parsed if isinstance(parsed, dict) else json.loads(parsed)
+            state["confirmed_profile"] = json.loads(content) if isinstance(content, (str, bytes, bytearray)) else content
         state["execution_logs"].append({"step": "profile", "status": "ok"})
     except Exception as e:
         logger.error(f"Profile step error: {e}")

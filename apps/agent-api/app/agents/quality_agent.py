@@ -19,6 +19,7 @@ def build_quality_agent() -> Agent:
             "Deteksi kontradiksi antara data pasar dan rekomendasi.",
             "Tandai limitation jika confidence level rendah atau retrieved_jobs < 5.",
             "Set quality_approved = True hanya jika semua kriteria terpenuhi.",
+            "Output JSON field: profile_summary (object), top_paths (list), skill_gap_matrix (list), roadmap_30_60_90 (dict), market_evidence (dict), limitations (list), confidence_level (str), sources (list).",
         ],
         output_schema=CareerBlueprint,
         structured_outputs=False,
